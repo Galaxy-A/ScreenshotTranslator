@@ -1,0 +1,22 @@
+{
+  "ocr_config": {
+    "language": "chi_sim+eng",
+    "psm": "3",
+    "oem": "3"
+  },
+  "offset": {
+    "horizontal": 0,
+    "vertical": 0
+  },
+  "tesseract_path": "F:\\softeare\\OCR\\tesseract.exe",
+  "tessdata_path": "F:\\softeare\\OCR\\tessdata",
+  "deepseek_api_key": "ApiKey",
+  "deepseek_model": "deepseek-reasoner",
+  "preprocessing": {
+    "grayscale": true,
+    "invert": false,
+    "threshold": 0
+  },
+  "hide_window_on_capture": true,
+  "hotkey": "ctrl+alt+s"
+}

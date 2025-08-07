@@ -1,0 +1,19 @@
+from app import OCRApp
+import tkinter as tk
+
+if __name__ =   _main
+
+root    tk. TkO
+
+app = OCRApplicati
+
+root.protoco
+
+OCR截图文字识别工具
+
+查看上次结果
+
+1, 点去 TH an
+2. ERS LEE
+
+SHE

@@ -1,0 +1,115 @@
+===== STDOUT =====
+
+===== STDERR =====
+203 INFO: PyInstaller: 6.14.2, contrib hooks: 2025.8
+203 INFO: Python: 3.12.2
+218 INFO: Platform: Windows-10-10.0.19045-SP0
+218 INFO: Python environment: F:\Rrojects\ScreenshotTranslator\venv
+218 INFO: wrote F:\Rrojects\ScreenshotTranslator\ScreenshotTranslator.spec
+218 INFO: Removing temporary files and cleaning cache in C:\Users\Q\AppData\Local\pyinstaller
+234 INFO: Module search paths (PYTHONPATH):
+['F:\\Rrojects\\ScreenshotTranslator\\venv\\Scripts\\pyinstaller.exe',
+ 'F:\\softeare\\python\\python312.zip',
+ 'F:\\softeare\\python\\DLLs',
+ 'F:\\softeare\\python\\Lib',
+ 'F:\\softeare\\python',
+ 'F:\\Rrojects\\ScreenshotTranslator\\venv',
+ 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages',
+ 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\setuptools\\_vendor',
+ 'F:\\Rrojects\\ScreenshotTranslator\\src']
+656 INFO: Appending 'datas' from .spec
+656 INFO: checking Analysis
+656 INFO: Building Analysis because Analysis-00.toc is non existent
+656 INFO: Running Analysis Analysis-00.toc
+656 INFO: Target bytecode optimization level: 0
+656 INFO: Initializing module dependency graph...
+656 INFO: Initializing module graph hook caches...
+671 INFO: Analyzing modules for base_library.zip ...
+2046 INFO: Processing standard module hook 'hook-encodings.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+3669 INFO: Processing standard module hook 'hook-pickle.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+4569 INFO: Processing standard module hook 'hook-heapq.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+4944 INFO: Caching module dependency graph...
+4991 INFO: Looking for Python shared library...
+5007 INFO: Using Python shared library: F:\softeare\python\python312.dll
+5007 INFO: Analyzing F:\Rrojects\ScreenshotTranslator\src\main.py
+5069 INFO: Processing pre-find-module-path hook 'hook-tkinter.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_find_module_path'
+5069 INFO: TclTkInfo: initializing cached Tcl/Tk info...
+5335 INFO: Processing standard module hook 'hook-_tkinter.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+5382 INFO: Processing standard module hook 'hook-PIL.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+5491 INFO: Processing standard module hook 'hook-PIL.Image.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+5866 INFO: Processing standard module hook 'hook-numpy.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+6194 INFO: Processing standard module hook 'hook-platform.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+6334 INFO: Processing standard module hook 'hook-sysconfig.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+7272 INFO: Processing standard module hook 'hook-difflib.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+7459 INFO: Processing standard module hook 'hook-multiprocessing.util.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+7537 INFO: Processing standard module hook 'hook-xml.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+8725 INFO: Processing pre-safe-import-module hook 'hook-typing_extensions.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+8725 INFO: SetuptoolsInfo: initializing cached setuptools info...
+13256 INFO: Setuptools: 'typing_extensions' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.typing_extensions'!
+13256 INFO: Processing standard module hook 'hook-setuptools.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+13271 INFO: Processing pre-safe-import-module hook 'hook-distutils.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+13303 INFO: Processing pre-safe-import-module hook 'hook-jaraco.functools.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+13303 INFO: Setuptools: 'jaraco.functools' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.jaraco.functools'!
+13303 INFO: Processing pre-safe-import-module hook 'hook-more_itertools.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+13303 INFO: Setuptools: 'more_itertools' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.more_itertools'!
+13490 INFO: Processing pre-safe-import-module hook 'hook-packaging.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+13615 INFO: Processing pre-safe-import-module hook 'hook-jaraco.text.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+13615 INFO: Setuptools: 'jaraco.text' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.jaraco.text'!
+13631 INFO: Processing standard module hook 'hook-setuptools._vendor.jaraco.text.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+13631 INFO: Processing pre-safe-import-module hook 'hook-importlib_resources.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+13631 INFO: Processing pre-safe-import-module hook 'hook-jaraco.context.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+13631 INFO: Setuptools: 'jaraco.context' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.jaraco.context'!
+13646 INFO: Processing pre-safe-import-module hook 'hook-backports.tarfile.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+13646 INFO: Setuptools: 'backports.tarfile' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.backports.tarfile'!
+13724 INFO: Processing standard module hook 'hook-backports.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+13787 INFO: Processing pre-safe-import-module hook 'hook-importlib_metadata.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+13787 INFO: Setuptools: 'importlib_metadata' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.importlib_metadata'!
+13818 INFO: Processing standard module hook 'hook-setuptools._vendor.importlib_metadata.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+13818 INFO: Processing pre-safe-import-module hook 'hook-zipp.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+13818 INFO: Setuptools: 'zipp' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.zipp'!
+14164 INFO: Processing pre-safe-import-module hook 'hook-tomli.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+14164 INFO: Setuptools: 'tomli' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.tomli'!
+14695 INFO: Processing pre-safe-import-module hook 'hook-wheel.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+14695 INFO: Setuptools: 'wheel' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.wheel'!
+15320 INFO: Processing standard module hook 'hook-charset_normalizer.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+15711 INFO: Processing standard module hook 'hook-xml.etree.cElementTree.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+15867 INFO: Processing standard module hook 'hook-PIL.ImageFilter.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+16148 INFO: Processing standard module hook 'hook-urllib3.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+16710 INFO: Processing standard module hook 'hook-certifi.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+17054 INFO: Processing module hooks (post-graph stage)...
+17336 INFO: Processing standard module hook 'hook-PIL.SpiderImagePlugin.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+17586 INFO: Processing standard module hook 'hook-_tkinter.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+17601 INFO: Performing binary vs. data reclassification (939 entries)
+17711 INFO: Looking for ctypes DLLs
+17757 INFO: Analyzing run-time hooks ...
+17757 INFO: Including run-time hook 'pyi_rth_inspect.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+17773 INFO: Including run-time hook 'pyi_rth_setuptools.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+17773 INFO: Including run-time hook 'pyi_rth_pkgutil.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+17773 INFO: Including run-time hook 'pyi_rth_multiprocessing.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+17773 INFO: Including run-time hook 'pyi_rth__tkinter.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+17804 INFO: Creating base_library.zip...
+17882 INFO: Looking for dynamic libraries
+19945 INFO: Extra DLL search directories (AddDllDirectory): ['F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\numpy.libs']
+19945 INFO: Extra DLL search directories (PATH): []
+20897 INFO: Warnings written to F:\Rrojects\ScreenshotTranslator\build\ScreenshotTranslator\warn-ScreenshotTranslator.txt
+20976 INFO: Graph cross-reference written to F:\Rrojects\ScreenshotTranslator\build\ScreenshotTranslator\xref-ScreenshotTranslator.html
+21007 INFO: checking PYZ
+21007 INFO: Building PYZ because PYZ-00.toc is non existent
+21007 INFO: Building PYZ (ZlibArchive) F:\Rrojects\ScreenshotTranslator\build\ScreenshotTranslator\PYZ-00.pyz
+22053 INFO: Building PYZ (ZlibArchive) F:\Rrojects\ScreenshotTranslator\build\ScreenshotTranslator\PYZ-00.pyz completed successfully.
+22100 INFO: checking PKG
+22100 INFO: Building PKG because PKG-00.toc is non existent
+22100 INFO: Building PKG (CArchive) ScreenshotTranslator.pkg
+30737 INFO: Building PKG (CArchive) ScreenshotTranslator.pkg completed successfully.
+30737 INFO: Bootloader F:\Rrojects\ScreenshotTranslator\venv\Lib\site-packages\PyInstaller\bootloader\Windows-64bit-intel\runw.exe
+30737 INFO: checking EXE
+30737 INFO: Building EXE because EXE-00.toc is non existent
+30737 INFO: Building EXE from EXE-00.toc
+30737 INFO: Copying bootloader EXE to F:\Rrojects\ScreenshotTranslator\dist\ScreenshotTranslator.exe
+30753 INFO: Copying icon to EXE
+30753 INFO: Copying 0 resources to EXE
+30753 INFO: Embedding manifest in EXE
+30768 INFO: Appending PKG archive to EXE
+30909 INFO: Fixing EXE headers
+31541 INFO: Building EXE from EXE-00.toc completed successfully.
+31556 INFO: Build complete! The results are available in: F:\Rrojects\ScreenshotTranslator\dist
