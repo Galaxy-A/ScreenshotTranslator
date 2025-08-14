@@ -1,0 +1,11 @@
+pyinstaller==6.7.0
+pytesseract==0.3.10
+pillow==10.3.0
+keyboard==0.13.5
+openai==1.25.0
+opencv-python==4.9.0.80
+pygetwindow==0.0.9
+pyperclip==1.8.2
+requests==2.31.0
+pytest==8.1.1
+black==24.4.2

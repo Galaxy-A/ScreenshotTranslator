@@ -55,7 +55,7 @@ if errorlevel 2 (
 ) else (
     echo 正在安装依赖包...
     pip install --upgrade pip
-    pip install pyinstaller pillow pytesseract requests keyboard opencv-python pygetwindow pyperclip
+    pip install -r requirements.txt
 )
 
 REM 5. 检查Tesseract-OCR安装
