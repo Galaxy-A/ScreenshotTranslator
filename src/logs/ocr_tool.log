@@ -1,0 +1,103 @@
+2025-08-14 01:03:38,101 - root - INFO - 统一日志系统已初始化
+2025-08-14 01:03:39,064 - OCRApplication - INFO - 应用程序初始化开始
+2025-08-14 01:03:39,064 - OCRApplication - INFO - 设置文件已加载
+2025-08-14 01:03:39,064 - ScreenCapture - INFO - 初始化屏幕捕获模块
+2025-08-14 01:03:39,064 - ScreenCapture - INFO - 屏幕参数: DPI缩放=1.25, 物理尺寸=1920x1080, 虚拟尺寸=1536x864
+2025-08-14 01:03:39,064 - OCREngine - INFO - OCR引擎初始化
+2025-08-14 01:03:39,064 - OCREngine - INFO - 更新预处理配置: {'grayscale': True, 'invert': False, 'threshold': 0}
+2025-08-14 01:03:39,064 - TranslationEngine - INFO - 初始化翻译引擎
+2025-08-14 01:03:42,399 - TranslationEngine - INFO - OpenAI客户端初始化成功
+2025-08-14 01:03:42,555 - OCRApplication - INFO - 开始监听快捷键...
+2025-08-14 01:03:42,555 - OCRApplication - INFO - 快捷键监听已启动: ctrl+alt+s
+2025-08-14 01:03:42,555 - OCRApplication - INFO - OCR应用程序已启动
+2025-08-14 01:03:43,883 - OCRApplication - INFO - 开始截图流程
+2025-08-14 01:03:44,200 - ScreenCapture - INFO - 启动区域选择
+2025-08-14 01:03:45,421 - ScreenCapture - INFO - 选择完成: 区域=(814, 399, 1481, 549)
+2025-08-14 01:03:45,801 - ScreenCapture - INFO - 捕获屏幕区域: (814, 399, 1481, 549)
+2025-08-14 01:03:45,854 - OCRApplication - INFO - 成功截取区域: (814,399)->(1481,549)
+2025-08-14 01:03:45,854 - ResultWindow - INFO - 创建结果窗口
+2025-08-14 01:03:46,002 - ResultWindow - INFO - 结果窗口初始化完成
+2025-08-14 01:03:46,002 - OCRApplication - INFO - 结果窗口已显示
+2025-08-14 01:03:46,105 - OCREngine - INFO - 执行OCR识别: 语言=chi_sim+eng, PSM=3, OEM=3
+2025-08-14 01:03:46,690 - OCREngine - INFO - OCR识别完成: 110字符, 13单词
+2025-08-14 01:03:46,690 - OCRApplication - INFO - OCR识别完成
+2025-08-14 01:03:46,690 - ResultWindow - INFO - 显示OCR结果
+2025-08-14 01:03:46,717 - OCRApplication - INFO - 识别完成: 110字符, 13单词
+2025-08-14 01:03:46,720 - OCRApplication - INFO - OCR结果和截图已保存
+2025-08-14 01:03:52,118 - ResultWindow - INFO - 关闭结果窗口
+2025-08-14 01:03:53,427 - OCRApplication - INFO - 打开设置窗口
+2025-08-14 01:03:53,427 - SettingsWindow - INFO - 创建设置窗口
+2025-08-14 01:03:53,533 - SettingsWindow - INFO - 设置窗口已打开
+2025-08-14 01:04:03,622 - SettingsWindow - INFO - 关闭设置窗口
+2025-08-14 01:04:26,240 - OCRApplication - INFO - 应用程序正在关闭...
+2025-08-14 01:04:26,301 - OCRApplication - INFO - 应用程序已关闭
+2025-08-14 14:22:16,701 - root - INFO - 统一日志系统已初始化
+2025-08-14 14:22:17,840 - OCRApplication - INFO - 应用程序初始化开始
+2025-08-14 14:22:17,841 - OCRApplication - INFO - 设置文件已加载
+2025-08-14 14:22:17,841 - ScreenCapture - INFO - 初始化屏幕捕获模块
+2025-08-14 14:22:17,841 - ScreenCapture - INFO - 屏幕参数: DPI缩放=1.25, 物理尺寸=1920x1080, 虚拟尺寸=1536x864
+2025-08-14 14:22:17,841 - OCREngine - INFO - OCR引擎初始化
+2025-08-14 14:22:17,841 - OCREngine - INFO - 更新预处理配置: {'grayscale': True, 'invert': False, 'threshold': 0}
+2025-08-14 14:22:17,841 - TranslationEngine - INFO - 初始化翻译引擎
+2025-08-14 14:22:21,104 - TranslationEngine - INFO - OpenAI客户端初始化成功
+2025-08-14 14:22:21,138 - OCRApplication - INFO - 开始监听快捷键...
+2025-08-14 14:22:21,138 - OCRApplication - INFO - 快捷键监听已启动: ctrl+alt+s
+2025-08-14 14:22:21,138 - OCRApplication - INFO - OCR应用程序已启动
+2025-08-14 14:22:22,719 - OCRApplication - INFO - 开始截图流程
+2025-08-14 14:22:23,038 - ScreenCapture - INFO - 启动区域选择
+2025-08-14 14:22:24,279 - ScreenCapture - INFO - 选择完成: 区域=(867, 199, 1410, 327)
+2025-08-14 14:22:24,644 - ScreenCapture - INFO - 捕获屏幕区域: (867, 199, 1410, 327)
+2025-08-14 14:22:24,690 - OCRApplication - INFO - 成功截取区域: (867,199)->(1410,327)
+2025-08-14 14:22:24,690 - ResultWindow - INFO - 创建结果窗口
+2025-08-14 14:22:24,707 - ResultWindow - INFO - 结果窗口初始化完成
+2025-08-14 14:22:24,707 - OCRApplication - INFO - 结果窗口已显示
+2025-08-14 14:22:24,749 - OCREngine - INFO - 执行OCR识别: 语言=chi_sim+eng, PSM=3, OEM=3
+2025-08-14 14:22:25,408 - OCREngine - INFO - OCR识别完成: 68字符, 6单词
+2025-08-14 14:22:25,408 - OCRApplication - INFO - OCR识别完成
+2025-08-14 14:22:25,408 - ResultWindow - INFO - 显示OCR结果
+2025-08-14 14:22:25,473 - OCRApplication - INFO - 识别完成: 68字符, 6单词
+2025-08-14 14:22:25,476 - OCRApplication - INFO - OCR结果和截图已保存
+2025-08-14 14:22:38,046 - ResultWindow - INFO - 开始翻译: 6字符
+2025-08-14 14:22:38,051 - ResultWindow - INFO - 翻译方向: zh2en
+2025-08-14 14:22:38,051 - TranslationEngine - INFO - 开始翻译: 方向=zh2en, 字符数=6
+2025-08-14 14:22:38,051 - TranslationEngine - INFO - 翻译尝试 #1/3
+2025-08-14 14:22:38,519 - httpx - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-08-14 14:22:57,672 - TranslationEngine - INFO - 流式翻译完成: 接收块=53, 字符数=267, 耗时=19.62秒
+2025-08-14 14:23:17,965 - ResultWindow - INFO - 关闭结果窗口
+2025-08-14 14:23:23,311 - OCRApplication - INFO - 应用程序正在关闭...
+2025-08-14 14:23:23,371 - OCRApplication - INFO - 应用程序已关闭
+2025-08-14 14:58:33,790 - root - INFO - 统一日志系统已初始化
+2025-08-14 14:58:34,753 - OCRApplication - INFO - 应用程序初始化开始
+2025-08-14 14:58:34,753 - OCRApplication - INFO - 设置文件已加载
+2025-08-14 14:58:34,754 - ScreenCapture - INFO - 初始化屏幕捕获模块
+2025-08-14 14:58:34,754 - ScreenCapture - INFO - 屏幕参数: DPI缩放=1.25, 物理尺寸=1920x1080, 虚拟尺寸=1536x864
+2025-08-14 14:58:34,754 - OCREngine - INFO - OCR引擎初始化
+2025-08-14 14:58:34,754 - OCREngine - INFO - 更新预处理配置: {'grayscale': True, 'invert': False, 'threshold': 0}
+2025-08-14 14:58:34,754 - TranslationEngine - INFO - 初始化翻译引擎
+2025-08-14 14:58:35,844 - TranslationEngine - INFO - OpenAI客户端初始化成功
+2025-08-14 14:58:35,878 - OCRApplication - INFO - 开始监听快捷键...
+2025-08-14 14:58:35,879 - OCRApplication - INFO - 快捷键监听已启动: ctrl+alt+s
+2025-08-14 14:58:35,879 - OCRApplication - INFO - OCR应用程序已启动
+2025-08-14 14:58:37,282 - OCRApplication - INFO - 开始截图流程
+2025-08-14 14:58:37,593 - ScreenCapture - INFO - 启动区域选择
+2025-08-14 14:58:38,534 - ScreenCapture - INFO - 选择完成: 区域=(909, 247, 1376, 449)
+2025-08-14 14:58:38,911 - ScreenCapture - INFO - 捕获屏幕区域: (909, 247, 1376, 449)
+2025-08-14 14:58:38,956 - OCRApplication - INFO - 成功截取区域: (909,247)->(1376,449)
+2025-08-14 14:58:38,956 - ResultWindow - INFO - 创建结果窗口
+2025-08-14 14:58:38,969 - ResultWindow - INFO - 结果窗口初始化完成
+2025-08-14 14:58:38,969 - OCRApplication - INFO - 结果窗口已显示
+2025-08-14 14:58:39,001 - OCREngine - INFO - 执行OCR识别: 语言=chi_sim+eng, PSM=3, OEM=3
+2025-08-14 14:58:39,910 - OCREngine - INFO - OCR识别完成: 199字符, 16单词
+2025-08-14 14:58:39,910 - OCRApplication - INFO - OCR识别完成
+2025-08-14 14:58:39,910 - ResultWindow - INFO - 显示OCR结果
+2025-08-14 14:58:39,939 - OCRApplication - INFO - 识别完成: 199字符, 16单词
+2025-08-14 14:58:39,942 - OCRApplication - INFO - OCR结果和截图已保存
+2025-08-14 14:58:53,348 - ResultWindow - INFO - 开始翻译: 6字符
+2025-08-14 14:58:53,349 - ResultWindow - INFO - 翻译方向: zh2en
+2025-08-14 14:58:53,349 - TranslationEngine - INFO - 开始翻译: 方向=zh2en, 字符数=6
+2025-08-14 14:58:53,349 - TranslationEngine - INFO - 翻译尝试 #1/3
+2025-08-14 14:58:53,927 - httpx - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-08-14 14:59:07,014 - TranslationEngine - INFO - 流式翻译完成: 接收块=4, 字符数=21, 耗时=13.66秒
+2025-08-14 14:59:10,217 - ResultWindow - INFO - 关闭结果窗口
+2025-08-14 14:59:11,707 - OCRApplication - INFO - 应用程序正在关闭...
+2025-08-14 14:59:11,764 - OCRApplication - INFO - 应用程序已关闭

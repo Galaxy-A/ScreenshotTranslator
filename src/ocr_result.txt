@@ -1,19 +1,7 @@
-from app import OCRApp
-import tkinter as tk
-
-if __name__ =   _main
-
-root    tk. TkO
-
-app = OCRApplicati
-
-root.protoco
-
-OCR截图文字识别工具
-
-查看上次结果
-
-1, 点去 TH an
-2. ERS LEE
-
-SHE
+if nooK-T1LILe.eXxlStS\) -
+print(f"册|除hook文件: {hook_file}")
+hook_fite.untinkO)
+hook_file = base_path / "hook-pytesseract.py"
+if hook_file.exists():
+print(f"册|除hook文件: {hook_file}")
+hook_fite.untinkO)

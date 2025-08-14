@@ -1,4 +1,4 @@
-# app.py
+# app.py - 主应用程序类
 import os
 import sys
 import ctypes
@@ -7,6 +7,7 @@ import time
 import json
 import tkinter as tk
 from tkinter import messagebox, ttk
+import logging
 from screen_capture import ScreenCapture
 from ocr_engine import OCREngine
 from result_window import ResultWindow
@@ -59,6 +60,10 @@ class OCRApplication:
         self.master.title("OCR截图工具")
         self.master.geometry("400x300")
         self.master.resizable(True, True)
+
+        # 获取日志记录器
+        self.logger = logging.getLogger("OCRApplication")
+        self.logger.info("应用程序初始化开始")
 
         # 加载设置
         self.settings = self.load_settings()
@@ -113,18 +118,15 @@ class OCRApplication:
         # 设置应用图标
         try:
             icon_path = resource_path('ocr_icon.ico')
-            # 调试输出
-            print(f"尝试加载图标: {icon_path}")
             if os.path.exists(icon_path):
                 self.master.iconbitmap(icon_path)
-                print("图标加载成功")
-            else:
-                print(f"图标文件不存在: {icon_path}")
         except Exception as e:
-            print(f"图标加载失败: {e}")
+            self.logger.error(f"设置应用图标失败: {str(e)}")
 
         # 启动快捷键监听
         self.start_hotkey_listener()
+
+        self.logger.info("OCR应用程序已启动")
 
     def start_hotkey_listener(self):
         """启动快捷键监听线程"""
@@ -136,9 +138,11 @@ class OCRApplication:
             daemon=True
         )
         self.hotkey_thread.start()
+        self.logger.info(f"快捷键监听已启动: {self.hotkey}")
 
     def listen_for_hotkey(self):
         """监听快捷键"""
+        self.logger.info("开始监听快捷键...")
         while self.hotkey_enabled:
             try:
                 # 使用超时避免阻塞
@@ -151,7 +155,7 @@ class OCRApplication:
                     time.sleep(0.5)
                 time.sleep(0.05)
             except Exception as e:
-                print(f"快捷键监听错误: {e}")
+                self.logger.error(f"快捷键监听错误: {str(e)}")
                 time.sleep(1)
 
     def load_settings(self):
@@ -159,10 +163,14 @@ class OCRApplication:
         if os.path.exists(SETTINGS_FILE):
             try:
                 with open(SETTINGS_FILE, 'r', encoding='utf-8') as f:
-                    return json.load(f)
-            except:
+                    settings = json.load(f)
+                self.logger.info("设置文件已加载")
+                return settings
+            except Exception as e:
+                self.logger.error(f"加载设置文件失败: {str(e)}, 使用默认设置")
                 # 文件损坏时使用默认设置
                 return DEFAULT_SETTINGS
+        self.logger.info("未找到设置文件，使用默认设置")
         return DEFAULT_SETTINGS
 
     def save_settings(self):
@@ -175,8 +183,10 @@ class OCRApplication:
 
             with open(SETTINGS_FILE, 'w', encoding='utf-8') as f:
                 json.dump(self.settings, f, indent=2)
+            self.logger.info("设置已保存")
             return True
         except Exception as e:
+            self.logger.error(f"保存设置失败: {str(e)}")
             messagebox.showerror("保存设置失败", f"无法保存设置: {str(e)}")
             return False
 
@@ -189,7 +199,8 @@ class OCRApplication:
                 dpi_x = ctypes.windll.gdi32.GetDeviceCaps(hdc, 88)
                 ctypes.windll.user32.ReleaseDC(0, hdc)
                 return dpi_x / 96.0
-        except:
+        except Exception as e:
+            self.logger.warning(f"获取DPI缩放比例失败: {str(e)}")
             return 1.0
 
     def get_physical_screen_size(self):
@@ -198,7 +209,8 @@ class OCRApplication:
             if sys.platform == 'win32':
                 user32 = ctypes.windll.user32
                 return user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
-        except:
+        except Exception as e:
+            self.logger.warning(f"获取物理屏幕尺寸失败: {str(e)}")
             return self.master.winfo_screenwidth(), self.master.winfo_screenheight()
 
     def create_main_ui(self):
@@ -279,10 +291,12 @@ class OCRApplication:
         tessdata_path = self.settings["tessdata_path"]
 
         if not os.path.exists(tesseract_path):
+            self.logger.error(f"找不到Tesseract可执行文件: {tesseract_path}")
             messagebox.showerror("路径错误", f"找不到Tesseract可执行文件: {tesseract_path}")
             return False
 
         if not os.path.exists(tessdata_path):
+            self.logger.warning(f"找不到语言包目录: {tessdata_path}")
             messagebox.showwarning("路径警告", f"找不到语言包目录: {tessdata_path}")
 
         return True
@@ -291,6 +305,7 @@ class OCRApplication:
         """开始截图流程"""
         self.status_var.set("准备截图...")
         self.master.update()
+        self.logger.info("开始截图流程")
         self.master.after(300, self.capture_and_ocr)
 
     def capture_and_ocr(self):
@@ -309,6 +324,7 @@ class OCRApplication:
 
         if not physical_coords:
             self.status_var.set("截图已取消")
+            self.logger.info("截图已取消")
             return
 
         # 转换为虚拟坐标
@@ -317,6 +333,7 @@ class OCRApplication:
 
         # 区域有效性检查
         if abs(x2 - x1) < 5 or abs(y2 - y1) < 5:
+            self.logger.warning("选择的区域太小")
             messagebox.showwarning("区域无效", "选择的区域太小，请重新选择")
             self.capture_and_ocr()
             return
@@ -342,7 +359,9 @@ class OCRApplication:
 
         try:
             self.current_screenshot = self.screen_capture.capture_area((x1_phys, y1_phys, x2_phys, y2_phys))
+            self.logger.info(f"成功截取区域: ({x1_phys},{y1_phys})->({x2_phys},{y2_phys})")
         except Exception as e:
+            self.logger.error(f"截图失败: {str(e)}")
             self.status_var.set(f"截图失败: {str(e)}")
             return
 
@@ -364,9 +383,11 @@ class OCRApplication:
 
             # 执行OCR
             text = self.ocr_engine.perform_ocr(self.current_screenshot)
+            self.logger.info("OCR识别完成")
 
             if not text.strip():
                 self.status_var.set("识别中：尝试纯文本识别...")
+                self.logger.info("尝试纯文本识别...")
                 text = self.ocr_engine.perform_ocr(self.current_screenshot, lang='eng')
 
             # 显示结果
@@ -378,19 +399,22 @@ class OCRApplication:
             char_count = len(text.strip())
             word_count = len(text.split())
             self.status_var.set(f"识别完成！共识别 {char_count} 个字符，{word_count} 个单词")
+            self.logger.info(f"识别完成: {char_count}字符, {word_count}单词")
 
             # 保存结果
             try:
                 with open('ocr_result.txt', 'w', encoding='utf-8') as f:
                     f.write(text)
                 self.current_screenshot.save("screenshot.png")
-            except:
-                pass
+                self.logger.info("OCR结果和截图已保存")
+            except Exception as e:
+                self.logger.error(f"保存结果失败: {str(e)}")
 
             # 启用查看结果按钮
             self.open_result_btn.config(state=tk.NORMAL)
 
         except Exception as e:
+            self.logger.error(f"识别失败: {str(e)}")
             self.status_var.set(f"识别失败: {str(e)}")
             if self.result_window:
                 self.result_window.text_area.config(state=tk.NORMAL)
@@ -405,17 +429,21 @@ class OCRApplication:
 
         # 将self传递给ResultWindow
         self.result_window = ResultWindow(self.master, self.current_screenshot, self.ocr_result, self)
+        self.logger.info("结果窗口已显示")
 
     def show_last_result(self):
         """显示上次识别结果"""
         if self.ocr_result:
             self.show_result_window()
             self.result_window.display_result(self.ocr_result, self.current_screenshot)
+            self.logger.info("显示上次结果")
         else:
+            self.logger.info("没有可用的历史结果")
             messagebox.showinfo("提示", "没有可用的历史结果")
 
     def show_settings(self):
         """显示设置窗口"""
+        self.logger.info("打开设置窗口")
         # 创建设置窗口
         settings_win = SettingsWindow(
             self.master,
@@ -458,6 +486,7 @@ class OCRApplication:
                     self.hotkey_thread.join(0.5)
                 self.hotkey_enabled = True
                 self.start_hotkey_listener()
+                self.logger.info(f"快捷键已更新为: {self.hotkey}")
 
             # 更新使用说明
             for widget in self.master.winfo_children():
@@ -480,10 +509,13 @@ class OCRApplication:
             self.save_settings()
 
             messagebox.showinfo("设置已保存", "设置已更新并保存！")
+            self.logger.info("设置已保存")
 
     def on_closing(self):
         """程序关闭时调用"""
+        self.logger.info("应用程序正在关闭...")
         self.hotkey_enabled = False
         if self.hotkey_thread and self.hotkey_thread.is_alive():
             self.hotkey_thread.join(0.5)
         self.master.destroy()
+        self.logger.info("应用程序已关闭")

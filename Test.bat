@@ -23,38 +23,50 @@ if %errorlevel% equ 0 (
     exit /b 1
 )
 
+REM 检查必要文件是否存在
+if not exist "src\main.py" (
+    echo.
+    echo ======================================================
+    echo 错误：未找到 src\main.py 文件！
+    echo ======================================================
+    echo.
+    pause
+    exit /b 1
+)
+
 REM 3. 创建Python虚拟环境
 echo 正在创建Python虚拟环境...
-python -m venv venv
-call venv\Scripts\activate
+python -m venv .venv
+call .venv\Scripts\activate
 
 REM 4. 安装Python依赖
 echo.
 echo ======================================================
-echo 步骤4/8：虚拟环境安装Python依赖包
+echo 步骤4/9：虚拟环境安装Python依赖包
 echo ======================================================
 echo 此步骤将安装打包所需的Python依赖包。
 echo 按 Y 安装依赖包，或按 N 跳过（如果已安装）。
 echo 注意：跳过安装可能导致打包失败。
 echo.
-choice /c YN /n /m "是否安装Python依赖包？[Y/N]"
+choice /c YN /t 15 /d N /m "是否安装Python依赖包？[15秒后自动选N]"
 
 if errorlevel 2 (
     echo 已跳过依赖包安装。
 ) else (
     echo 正在安装依赖包...
-    pip install pyinstaller pillow pytesseract requests keyboard opencv-python
+    pip install --upgrade pip
+    pip install pyinstaller pillow pytesseract requests keyboard opencv-python pygetwindow pyperclip
 )
 
 REM 5. 检查Tesseract-OCR安装
 echo.
 echo ======================================================
-echo 步骤5/8：OCR引擎检查
+echo 步骤5/9：OCR引擎检查
 echo ======================================================
 echo 重要：OCR功能需要Tesseract-OCR支持！
 echo 如果未安装，OCR功能将无法正常工作。
 echo.
-choice /c YN /n /m "是否打开Tesseract-OCR下载页面？[Y/N]"
+choice /c YN /t 10 /d N /m "是否打开Tesseract-OCR下载页面？[10秒后自动选N]"
 
 if errorlevel 2 (
     echo 已跳过Tesseract-OCR安装。
@@ -69,50 +81,82 @@ if errorlevel 2 (
     pause
 )
 
-REM 6. 运行打包脚本
+REM 6. 选择是否运行打包程序
 echo.
 echo ======================================================
-echo 步骤6/8：运行打包程序
+echo 步骤6/9：选择是否打包
 echo ======================================================
-echo 正在打包应用程序...
-python build.py
+echo 即将运行打包程序，生成可执行文件。
+echo 按 Y 开始打包，或按 N 跳过打包。
+echo.
+choice /c YN /t 15 /d N /m "是否运行打包程序？[15秒后自动选N]"
 
-REM 7. 检查打包结果
-if exist dist\ScreenshotTranslator.exe (
-    echo.
-    echo ======================================================
-    echo 打包成功！
-    echo ======================================================
-    echo 可执行文件路径：dist\ScreenshotTranslator.exe
-    echo.
-    echo 重要提示：使用OCR功能需要安装Tesseract-OCR。
-    echo 如果尚未安装，请访问：
-    echo   https://github.com/UB-Mannheim/tesseract/wiki
-    echo.
-    choice /c YN /n /m "是否立即测试应用程序？[Y/N]"
-
-    if errorlevel 2 (
-        echo 已跳过测试。
-    ) else (
-        echo 正在启动应用程序...
-        start "" "dist\ScreenshotTranslator.exe"
-    )
+if errorlevel 2 (
+    echo 已跳过打包。
+    set SKIP_BUILD=1
 ) else (
-    echo.
-    echo ======================================================
-    echo 打包失败！
-    echo ======================================================
-    echo 请检查 build_log.txt 文件查看详细错误信息。
+    echo 正在打包应用程序...
+    set SKIP_BUILD=0
 )
 
-REM 8. 清理临时文件
+REM 7. 运行打包脚本（如果选择Y）
+if %SKIP_BUILD% equ 0 (
+    echo.
+    echo ======================================================
+    echo 步骤7/9：运行打包程序
+    echo ======================================================
+    python build.py
+)
+
+REM 8. 检查打包结果（如果运行了打包）
+if %SKIP_BUILD% equ 0 (
+    echo.
+    echo ======================================================
+    echo 步骤8/9：检查打包结果
+    echo ======================================================
+
+    if exist dist\ScreenshotTranslator.exe (
+        echo.
+        echo ======================================================
+        echo 打包成功！
+        echo ======================================================
+        echo 可执行文件路径：dist\ScreenshotTranslator.exe
+        echo 版本信息：dist\build_info.txt
+        echo.
+        echo 重要提示：使用OCR功能需要安装Tesseract-OCR。
+        echo 如果尚未安装，请访问：
+        echo   https://github.com/UB-Mannheim/tesseract/wiki
+        echo.
+        choice /c YN /t 10 /d N /m "是否立即测试应用程序？[10秒后自动选N]"
+
+        if errorlevel 2 (
+            echo 已跳过测试。
+        ) else (
+            echo 正在启动应用程序...
+            start "" "dist\ScreenshotTranslator.exe"
+        )
+    ) else (
+        echo.
+        echo ======================================================
+        echo 打包失败！
+        echo ======================================================
+        echo 请检查 build_log.txt 文件查看详细错误信息。
+        echo.
+        pause
+        exit /b 1
+    )
+) else (
+    echo 已跳过打包结果检查。
+)
+
+REM 9. 清理临时文件
 echo.
 echo ======================================================
-echo 步骤8/8：清理临时文件
+echo 步骤9/9：清理临时文件
 echo ======================================================
 echo 正在清理虚拟环境...
 deactivate
-rmdir /s /q venv
+rmdir /s /q .venv
 
 echo.
 echo ======================================================
@@ -120,4 +164,3 @@ echo 所有操作已完成！
 echo ======================================================
 echo.
 pause
-

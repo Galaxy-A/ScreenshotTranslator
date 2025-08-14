@@ -1,13 +1,19 @@
-# settings_window.py - 设置窗口功能
-import os
+# settings_window.py - 设置窗口
 import tkinter as tk
 from tkinter import messagebox, ttk
 import pytesseract
+import logging
+import os
+from translation import TranslationEngine  # 导入翻译引擎
 
 class SettingsWindow:
     """处理设置窗口的类"""
 
     def __init__(self, master, dpi_scale, screen_size, virtual_size, ocr_engine, settings):
+        # 获取日志记录器
+        self.logger = logging.getLogger("SettingsWindow")
+        self.logger.info("创建设置窗口")
+
         self.master = master
         self.ocr_engine = ocr_engine
         self.original_settings = settings
@@ -22,14 +28,17 @@ class SettingsWindow:
 
         # 创建UI
         self._create_ui(dpi_scale, screen_size, virtual_size)
-
-        # 设置关闭事件
         self.window.protocol("WM_DELETE_WINDOW", self.on_close)
+
+        self.logger.info("设置窗口已打开")
 
     def on_close(self):
         """窗口关闭时的处理"""
+        self.logger.info("关闭设置窗口")
         # 检查设置是否有变化
         self.settings_updated = self.check_settings_changed()
+        if self.settings_updated:
+            self.logger.info("设置已更改")
         self.window.destroy()
 
     def check_settings_changed(self):
@@ -341,41 +350,57 @@ class SettingsWindow:
         """切换API密钥的可见性"""
         if self.show_api_key.get():
             entry.config(show="")
+            self.logger.debug("显示API密钥")
         else:
             entry.config(show="*")
+            self.logger.debug("隐藏API密钥")
 
     def test_deepseek_connection(self):
         """测试DeepSeek API连接"""
         api_key = self.api_key_var.get().strip()
         if not api_key:
+            self.logger.warning("测试API连接但未输入密钥")
             messagebox.showwarning("测试失败", "请输入API密钥")
             return
 
-        from translation import TranslationEngine
+        self.logger.info("开始测试DeepSeek API连接")
+        # 显示测试中状态
+        self.status_label.config(text="API密钥状态: 测试中...", foreground="#FF9800")
+        self.window.update()
+
         try:
             # 创建临时翻译引擎进行测试
             engine = TranslationEngine(api_key)
-            # 发送一个简单的测试请求
-            response = engine._perform_translation("Hello", "en2zh", None)
+            self.logger.debug("创建临时翻译引擎成功")
 
-            if "错误" in response or "失败" in response:
-                self.status_label.config(text="API密钥状态: 测试失败", foreground="#F44336")
-                messagebox.showerror("测试失败", f"无法连接到DeepSeek API:\n{response}")
-            else:
+            # 发送测试请求
+            result = engine._perform_non_streaming_translation("Hello", "en2zh", None)
+            self.logger.debug(f"API测试返回结果: {result[:50]}...")  # 只记录前50个字符
+
+            # 检查结果是否有效
+            if "你好" in result or "您好" in result:
                 self.status_label.config(text="API密钥状态: 连接成功", foreground="#4CAF50")
+                self.logger.info("DeepSeek API连接测试成功")
                 messagebox.showinfo("测试成功", "成功连接到DeepSeek API服务！")
+            else:
+                self.status_label.config(text="API密钥状态: 测试失败", foreground="#F44336")
+                self.logger.warning(f"API测试返回意外结果: {result[:100]}...")
+                messagebox.showerror("测试失败", f"API返回了意外结果:\n{result}")
 
         except Exception as e:
             self.status_label.config(text="API密钥状态: 测试失败", foreground="#F44336")
+            self.logger.error(f"DeepSeek API连接测试失败: {str(e)}")
             messagebox.showerror("测试失败", f"连接测试时出错:\n{str(e)}")
 
     def on_cancel(self):
         """取消按钮处理"""
+        self.logger.info("用户取消设置更改")
         self.settings_updated = False
         self.window.destroy()
 
     def apply_settings(self):
         """应用设置"""
+        self.logger.info("应用设置")
         try:
             # 更新OCR配置
             self.new_settings["ocr_config"] = {
@@ -383,22 +408,27 @@ class SettingsWindow:
                 "psm": self.psm_var.get(),
                 "oem": self.oem_var.get()
             }
+            self.logger.info(f"更新OCR配置: 语言={self.lang_var.get()}, PSM={self.psm_var.get()}, OEM={self.oem_var.get()}")
 
             # 更新偏移设置
             self.new_settings["offset"] = {
                 "horizontal": self.h_offset_var.get(),
                 "vertical": self.v_offset_var.get()
             }
+            self.logger.info(f"更新偏移设置: 水平={self.h_offset_var.get()}, 垂直={self.v_offset_var.get()}")
 
             # 更新路径设置
             self.new_settings["tesseract_path"] = self.tesseract_path_var.get()
             self.new_settings["tessdata_path"] = self.tessdata_path_var.get()
+            self.logger.info(f"更新路径设置: Tesseract路径={self.tesseract_path_var.get()}, 语言包路径={self.tessdata_path_var.get()}")
 
             # 更新API密钥设置
             self.new_settings["deepseek_api_key"] = self.api_key_var.get()
+            self.logger.info(f"更新API密钥: {self.api_key_var.get()[:6]}...")  # 只记录部分密钥
 
             # 更新AI模型设置
             self.new_settings["deepseek_model"] = self.model_var.get()
+            self.logger.info(f"更新AI模型: {self.model_var.get()}")
 
             # 更新预处理设置
             self.new_settings["preprocessing"] = {
@@ -406,18 +436,23 @@ class SettingsWindow:
                 "invert": self.invert_var.get(),
                 "threshold": self.threshold_var.get()
             }
+            self.logger.info(f"更新预处理设置: 灰度={self.grayscale_var.get()}, 反色={self.invert_var.get()}, 阈值={self.threshold_var.get()}")
 
             # 更新截屏时隐藏窗口设置
             self.new_settings["hide_window_on_capture"] = self.hide_window_var.get()
+            self.logger.info(f"更新截屏隐藏窗口设置: {self.hide_window_var.get()}")
 
             # 更新快捷键设置
             self.new_settings["hotkey"] = self.hotkey_var.get()
+            self.logger.info(f"更新快捷键: {self.hotkey_var.get()}")
 
             # 标记设置已更新
             self.settings_updated = True
 
             # 关闭窗口
             self.window.destroy()
+            self.logger.info("设置已应用并关闭窗口")
 
         except Exception as e:
+            self.logger.error(f"应用设置时出错: {str(e)}")
             messagebox.showerror("设置错误", f"应用设置时出错:\n{str(e)}")
