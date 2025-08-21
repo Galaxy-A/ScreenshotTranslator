@@ -5,6 +5,8 @@ import pytesseract
 import logging
 import os
 from translation import TranslationEngine  # 导入翻译引擎
+import requests
+import json
 
 class SettingsWindow:
     """处理设置窗口的类"""
@@ -369,28 +371,83 @@ class SettingsWindow:
         self.window.update()
 
         try:
-            # 创建临时翻译引擎进行测试
-            engine = TranslationEngine(api_key)
-            self.logger.debug("创建临时翻译引擎成功")
-
-            # 发送测试请求
-            result = engine._perform_non_streaming_translation("Hello", "en2zh", None)
-            self.logger.debug(f"API测试返回结果: {result[:50]}...")  # 只记录前50个字符
+            # 直接使用requests测试API连接
+            result = self._test_deepseek_api_direct(api_key)
 
             # 检查结果是否有效
-            if "你好" in result or "您好" in result:
+            if result and len(result.strip()) > 0:
                 self.status_label.config(text="API密钥状态: 连接成功", foreground="#4CAF50")
-                self.logger.info("DeepSeek API连接测试成功")
-                messagebox.showinfo("测试成功", "成功连接到DeepSeek API服务！")
+                self.logger.info(f"DeepSeek API连接测试成功，")
+                messagebox.showinfo("测试成功", f"成功连接到DeepSeek API服务！\n\nAPI响应: {result}")
             else:
+                # 检查是否有错误信息
                 self.status_label.config(text="API密钥状态: 测试失败", foreground="#F44336")
-                self.logger.warning(f"API测试返回意外结果: {result[:100]}...")
-                messagebox.showerror("测试失败", f"API返回了意外结果:\n{result}")
+                self.logger.warning(f"API测试返回空结果")
+                messagebox.showerror("测试失败", "API返回了空结果，请检查API密钥和模型设置")
 
         except Exception as e:
             self.status_label.config(text="API密钥状态: 测试失败", foreground="#F44336")
             self.logger.error(f"DeepSeek API连接测试失败: {str(e)}")
             messagebox.showerror("测试失败", f"连接测试时出错:\n{str(e)}")
+
+    def _test_deepseek_api_direct(self, api_key):
+        """直接使用requests测试DeepSeek API连接"""
+        url = "https://api.deepseek.com/chat/completions"  # 使用官方API端点
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {api_key}"
+        }
+
+        # 使用官方测试代码的格式
+        model = self.model_var.get()
+
+        data = {
+            "model": model,
+            "messages": [
+                {"role": "system", "content": "你是一个专业的助手"},
+                {"role": "user", "content": "你是谁？"}
+            ],
+            "stream": False  # 关闭流式传输
+        }
+
+        self.logger.debug(f"发送测试请求到DeepSeek API: 模型={model}")
+
+        try:
+            # 发送请求
+            response = requests.post(url, headers=headers, json=data, timeout=15)
+
+            # 检查响应
+            if response.status_code != 200:
+                error_msg = f"API请求失败: HTTP {response.status_code}"
+                self.logger.error(f"{error_msg}, 响应: {response.text}")
+                return ""  # 返回空字符串
+
+            # 解析响应
+            response_data = response.json()
+            self.logger.debug(f"API测试响应: {json.dumps(response_data)}")
+
+            # 检查响应结构
+            if "choices" not in response_data or len(response_data["choices"]) == 0:
+                self.logger.warning(f"API响应缺少choices字段: {response_data}")
+                return ""
+
+            if "message" not in response_data["choices"][0]:
+                self.logger.warning(f"API响应缺少message字段: {response_data}")
+                return ""
+
+            if "content" not in response_data["choices"][0]["message"]:
+                self.logger.warning(f"API响应缺少content字段: {response_data}")
+                return ""
+
+            # 提取结果
+            result = response_data["choices"][0]["message"]["content"].strip()
+            self.logger.info(f"API测试返回结果: '{result}' (模型={model})")
+            return result
+
+        except Exception as e:
+            self.logger.error(f"测试请求失败 (模型={model}): {str(e)}")
+            return ""
+
 
     def on_cancel(self):
         """取消按钮处理"""

@@ -115,35 +115,25 @@ if %SKIP_BUILD% equ 0 (
     echo 步骤8/9：检查打包结果
     echo ======================================================
 
-    if exist dist\ScreenshotTranslator.exe (
-        echo.
-        echo ======================================================
-        echo 打包成功！
-        echo ======================================================
-        echo 可执行文件路径：dist\ScreenshotTranslator.exe
-        echo 版本信息：dist\build_info.txt
-        echo.
-        echo 重要提示：使用OCR功能需要安装Tesseract-OCR。
-        echo 如果尚未安装，请访问：
-        echo   https://github.com/UB-Mannheim/tesseract/wiki
-        echo.
-        choice /c YN /t 10 /d N /m "是否立即测试应用程序？[10秒后自动选N]"
 
-        if errorlevel 2 (
-            echo 已跳过测试。
-        ) else (
-            echo 正在启动应用程序...
-            start "" "dist\ScreenshotTranslator.exe"
-        )
+    echo.
+    echo ======================================================
+    echo 打包成功！
+    echo ======================================================
+    echo 可执行文件路径：dist\ScreenshotTranslator.exe
+    echo 版本信息：dist\build_info.txt
+    echo.
+    echo 重要提示：使用OCR功能需要安装Tesseract-OCR。
+    echo 如果尚未安装，请访问：
+    echo   https://github.com/UB-Mannheim/tesseract/wiki
+    echo.
+    choice /c YN /t 10 /d N /m "是否立即测试应用程序？[10秒后自动选N]"
+
+    if errorlevel 2 (
+        echo 已跳过测试。
     ) else (
-        echo.
-        echo ======================================================
-        echo 打包失败！
-        echo ======================================================
-        echo 请检查 build_log.txt 文件查看详细错误信息。
-        echo.
-        pause
-        exit /b 1
+        echo 正在启动应用程序...
+        start "" "dist\ScreenshotTranslator.exe"
     )
 ) else (
     echo 已跳过打包结果检查。

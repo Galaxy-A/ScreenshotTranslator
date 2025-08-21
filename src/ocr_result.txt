@@ -1,7 +1,1 @@
-if nooK-T1LILe.eXxlStS\) -
-print(f"册|除hook文件: {hook_file}")
-hook_fite.untinkO)
-hook_file = base_path / "hook-pytesseract.py"
-if hook_file.exists():
-print(f"册|除hook文件: {hook_file}")
-hook_fite.untinkO)
+# 提取结果
