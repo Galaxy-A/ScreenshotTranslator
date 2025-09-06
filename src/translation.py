@@ -150,3 +150,106 @@ class TranslationEngine:
         except Exception as e:
             self.logger.error(f"翻译请求错误: {str(e)}")
             raise Exception(f"翻译失败: {str(e)}")
+
+    def generate_dialogue(self, prompt, callback=None):
+        """生成中英文对话"""
+        if not self.api_key:
+            error_msg = "错误：未设置有效的DeepSeek API密钥"
+            self.logger.error(error_msg)
+            if callback:
+                callback(error_msg)
+            return
+
+        self.logger.info("开始生成中英文对话")
+
+        # 在单独的线程中执行
+        threading.Thread(
+            target=self._perform_dialogue_generation_with_retry,
+            args=(prompt, callback, 3),  # 重试3次
+            daemon=True
+        ).start()
+
+    def _perform_dialogue_generation_with_retry(self, prompt, callback, retries):
+        """带重试机制的对话生成操作"""
+        for attempt in range(retries):
+            try:
+                self.logger.info(f"对话生成尝试 #{attempt+1}/{retries}")
+                result = self._perform_dialogue_generation(prompt, callback)
+                if callback:
+                    callback(result)
+                return result
+            except Exception as e:
+                error_msg = f"对话生成请求失败: {str(e)}"
+                self.logger.error(error_msg)
+
+                if attempt < retries - 1:
+                    wait_time = 2 ** attempt  # 指数退避策略
+                    self.logger.info(f"请求失败，{wait_time}秒后重试...")
+                    time.sleep(wait_time)
+                else:
+                    final_error = f"对话生成失败: {str(e)}\n请检查网络连接和API密钥"
+                    self.logger.error(final_error)
+                    if callback:
+                        callback(final_error)
+                    return final_error
+
+    def _perform_dialogue_generation(self, prompt, callback):
+        """使用DeepSeek API执行对话生成"""
+        # 准备请求数据
+        data = {
+            "model": self.model,
+            "messages": [
+                {"role": "system", "content": "你是一个语言学习助手，擅长生成自然的中英文对照对话。"},
+                {"role": "user", "content": prompt}
+            ],
+            "temperature": 0.8,
+            "max_tokens": 1000,
+            "stream": False
+        }
+
+        start_time = time.time()
+
+        try:
+            # 发送请求到DeepSeek API
+            self.logger.debug("发送对话生成请求到DeepSeek API")
+            response = requests.post(
+                self.base_url,
+                headers=self.headers,
+                json=data,
+                timeout=self.timeout
+            )
+
+            # 检查响应状态
+            if response.status_code != 200:
+                error_msg = f"API请求失败: HTTP {response.status_code}"
+                self.logger.error(f"{error_msg}, 响应: {response.text}")
+                raise Exception(f"{error_msg}: {response.text}")
+
+            # 解析响应
+            response_data = response.json()
+            self.logger.debug(f"API响应: {json.dumps(response_data)}")
+
+            if "choices" not in response_data or len(response_data["choices"]) == 0:
+                error_msg = "API响应格式异常"
+                self.logger.error(f"{error_msg}: {response_data}")
+                raise Exception(error_msg)
+
+            # 提取生成的对话
+            dialogue = response_data["choices"][0]["message"]["content"].strip()
+
+            # 记录性能指标
+            elapsed_time = time.time() - start_time
+            char_count = len(dialogue)
+            self.logger.info(f"对话生成完成: 字符数={char_count}, 耗时={elapsed_time:.2f}秒")
+
+            return dialogue
+
+        except requests.exceptions.Timeout:
+            self.logger.error("API请求超时")
+            raise Exception("API请求超时，请稍后重试")
+        except requests.exceptions.ConnectionError:
+            self.logger.error("网络连接错误")
+            raise Exception("网络连接错误，请检查网络连接")
+        except Exception as e:
+            self.logger.error(f"对话生成请求错误: {str(e)}")
+            raise Exception(f"对话生成失败: {str(e)}")

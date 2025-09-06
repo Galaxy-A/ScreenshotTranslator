@@ -23,13 +23,14 @@ def resource_path(relative_path):
 class ResultWindow:
     """处理结果显示窗口的类"""
 
-    def __init__(self, master, screenshot=None, ocr_result="", app=None):
+    def __init__(self, master, screenshot=None, ocr_result="", app=None,recapture_callback=None):
         # 获取日志记录器
         self.logger = logging.getLogger("ResultWindow")
         self.logger.info("创建结果窗口")
 
         self.master = master
         self.app = app  # 保存应用实例引用
+        self.recapture_callback = recapture_callback
         self.window = tk.Toplevel(master)
         self.window.title("OCR识别结果")
         self.window.geometry("800x600")
@@ -43,6 +44,8 @@ class ResultWindow:
         self.translation_in_progress = False  # 跟踪翻译状态
         self.translation_start_time = 0  # 记录翻译开始时间
         self.last_update_time = 0  # 记录上次更新UI的时间
+        self.auto_generate_dialogue = False  # 是否自动生成对话
+        self.original_ocr_text = ocr_result  # 保存原始OCR文本
 
         # 创建UI
         self._create_ui()
@@ -80,12 +83,7 @@ class ResultWindow:
         button_frame = ttk.Frame(main_frame)
         button_frame.pack(fill=tk.X, pady=10)
 
-        ttk.Button(
-            button_frame,
-            text="保存文本",
-            command=self.save_result,
-            width=12
-        ).pack(side=tk.LEFT, padx=5)
+
 
         ttk.Button(
             button_frame,
@@ -94,41 +92,8 @@ class ResultWindow:
             width=12
         ).pack(side=tk.LEFT, padx=5)
 
-        ttk.Button(
-            button_frame,
-            text="复制文本",
-            command=self.copy_to_clipboard,
-            width=12
-        ).pack(side=tk.LEFT, padx=5)
 
-        ttk.Button(
-            button_frame,
-            text="重新截图",
-            command=self.close_and_recapture,
-            width=12
-        ).pack(side=tk.LEFT, padx=5)
 
-        ttk.Button(
-            button_frame,
-            text="关闭",
-            command=self.window.destroy,
-            width=12
-        ).pack(side=tk.LEFT, padx=5)
-
-        # 添加翻译结果保存按钮
-        ttk.Button(
-            button_frame,
-            text="保存翻译结果",
-            command=self.save_translation_result,
-            width=12
-        ).pack(side=tk.LEFT, padx=5)
-
-        ttk.Button(
-            button_frame,
-            text="复制翻译文本",
-            command=self.copy_translation_to_clipboard,
-            width=12
-        ).pack(side=tk.LEFT, padx=5)
 
     def create_result_tab(self):
         """创建识别结果标签页"""
@@ -144,7 +109,8 @@ class ResultWindow:
             yscrollcommand=scrollbar.set,
             font=("微软雅黑", 11),
             padx=10,
-            pady=10
+            pady=10,
+            height=15
         )
         self.text_area.pack(fill=tk.BOTH, expand=True)
         scrollbar.config(command=self.text_area.yview)
@@ -163,6 +129,27 @@ class ResultWindow:
             style="Accent.TButton",
             width=15
         ).pack(side=tk.RIGHT, padx=5)
+
+        ttk.Button(
+            translate_btn_frame,
+            text="重新截图",
+            command=self.close_and_recapture,
+            width=12
+        ).pack(side=tk.LEFT, padx=5)
+
+        ttk.Button(
+            translate_btn_frame,
+            text="保存文本",
+            command=self.save_result,
+            width=12
+        ).pack(side=tk.LEFT, padx=5)
+
+        ttk.Button(
+            translate_btn_frame,
+            text="复制文本",
+            command=self.copy_to_clipboard,
+            width=12
+        ).pack(side=tk.LEFT, padx=5)
 
     def translate_from_result(self):
         """从结果标签页翻译文本"""
@@ -272,6 +259,21 @@ class ResultWindow:
         )
         self.cancel_btn.pack(side=tk.LEFT, padx=5)
 
+        # 添加翻译结果保存按钮
+        ttk.Button(
+            btn_frame,
+            text="保存翻译结果",
+            command=self.save_translation_result,
+            width=12
+        ).pack(side=tk.LEFT, padx=5)
+
+        ttk.Button(
+            btn_frame,
+            text="复制翻译文本",
+            command=self.copy_translation_to_clipboard,
+            width=12
+        ).pack(side=tk.LEFT, padx=5)
+
         # 结果框区域
         result_frame = ttk.LabelFrame(translation_frame, text="翻译结果")
         result_frame.pack(fill=tk.BOTH, expand=True, pady=5)
@@ -297,6 +299,9 @@ class ResultWindow:
         # 更新当前截图
         if screenshot:
             self.current_screenshot = screenshot
+
+        # 保存原始OCR文本
+        self.original_ocr_text = text
 
         # 在识别结果标签页显示文本
         self.text_area.config(state=tk.NORMAL)
@@ -463,8 +468,14 @@ class ResultWindow:
     def close_and_recapture(self):
         """关闭窗口并触发重新截图"""
         self.logger.info("触发重新截图")
+
+        # 如果有重新截图回调函数，调用它
+        if self.recapture_callback:
+            # 延迟执行，确保窗口先关闭
+            self.master.after(100, self.recapture_callback)
+
+        # 关闭当前窗口
         self.window.destroy()
-        return "recapture"
 
     def detect_language(self, text):
         """检测文本的主要语言"""
@@ -499,6 +510,100 @@ class ResultWindow:
         except OSError:
             self.logger.warning("网络连接不可用")
             return False
+
+    def auto_translate_and_generate(self, text):
+        """自动翻译并生成中英文对话"""
+        self.logger.info("开始自动翻译并生成对话")
+
+        # 保存原始文本
+        self.original_ocr_text = text
+
+        # 切换到翻译标签页
+        self.notebook.select(2)  # 切换到翻译标签页
+
+        # 设置翻译输入框内容
+        self.translate_input.delete(1.0, tk.END)
+        self.translate_input.insert(tk.END, text)
+
+        # 自动检测语言并设置翻译方向
+        lang = self.detect_language(text)
+        if lang == "chinese":
+            self.direction_var.set("zh2en")  # 中译英
+        else:
+            self.direction_var.set("en2zh")  # 英译中
+
+        # 设置自动生成对话标志
+        self.auto_generate_dialogue = True
+
+        # 执行翻译
+        self.translate_text()
+
+    def schedule_dialogue_generation(self, original_text):
+        """安排对话生成任务"""
+        def dialogue_task():
+            # 等待翻译完成
+            max_wait = 30  # 最大等待30秒
+            wait_count = 0
+            while self.translation_in_progress and wait_count < max_wait:
+                time.sleep(0.5)
+                wait_count += 1
+
+            # 获取翻译结果
+            translated_text = self.translate_output.get(1.0, tk.END).strip()
+
+            if translated_text and not translated_text.startswith("翻译失败"):
+                # 生成对话
+                self.generate_bilingual_dialogue(original_text, translated_text)
+            else:
+                self.logger.warning("翻译未完成或失败，无法生成对话")
+
+        # 在后台线程中执行
+        threading.Thread(target=dialogue_task, daemon=True).start()
+
+    def generate_bilingual_dialogue(self, original_text, translated_text):
+        """生成中英文对照对话"""
+        self.logger.info("开始生成中英文对话")
+
+        # 显示生成中的状态
+        self.append_to_translation_output("\n\n--- 生成中英文对话 ---\n生成中，请稍候...")
+
+        # 准备提示词
+        prompt = f"请基于以下内容生成3组中英文对照的日常对话:\n\n原文: {original_text}\n翻译: {translated_text}\n\n每组对话格式为:\n中文: [中文对话]\n英文: [英文对话]\n\n对话应该自然、实用，适合语言学习。"
+
+        # 执行对话生成
+        self.app.translation_engine.generate_dialogue(
+            prompt,
+            callback=self.handle_dialogue_result
+        )
+
+    def handle_dialogue_result(self, result):
+        """处理对话生成结果"""
+        self.window.after(0, self._safe_handle_dialogue_result, result)
+
+    def _safe_handle_dialogue_result(self, result):
+        """安全处理对话生成结果（在主线程执行）"""
+        if not self.window.winfo_exists():
+            return
+
+        # 移除"生成中"提示
+        current_text = self.translate_output.get(1.0, tk.END)
+        if "生成中，请稍候..." in current_text:
+            current_text = current_text.replace("生成中，请稍候...", "")
+            self.translate_output.config(state=tk.NORMAL)
+            self.translate_output.delete(1.0, tk.END)
+            self.translate_output.insert(tk.END, current_text)
+            self.translate_output.config(state=tk.NORMAL)
+
+        # 添加对话结果
+        self.append_to_translation_output(f"\n{result}")
+        self.logger.info("中英文对话生成完成")
+
+    def append_to_translation_output(self, text):
+        """向翻译输出框追加文本"""
+        self.translate_output.config(state=tk.NORMAL)
+        self.translate_output.insert(tk.END, text)
+        self.translate_output.see(tk.END)
+        self.translate_output.config(state=tk.NORMAL)
 
     def translate_text(self):
         """翻译文本"""
@@ -562,6 +667,10 @@ class ResultWindow:
         # 执行翻译 - 使用主线程安全方式
         self.schedule_translation(text_to_translate, direction)
 
+        # 如果设置了自动生成对话，安排对话生成
+        if self.auto_generate_dialogue:
+            self.schedule_dialogue_generation(text_to_translate)
+
     def schedule_translation(self, text, direction):
         """安排翻译任务在主线程安全执行"""
         def translation_task():
@@ -602,8 +711,6 @@ class ResultWindow:
 
         # 如果翻译已被取消，但窗口仍然存在，则显示结果
         if not self.translation_in_progress:
-            # self.logger.info("翻译结果返回但标记为已取消 - 显示结果")
-
             # 恢复按钮状态
             self.translate_btn.config(state=tk.NORMAL)
             self.cancel_btn.config(state=tk.DISABLED)
@@ -627,7 +734,6 @@ class ResultWindow:
             # 记录翻译完成
             elapsed_time = time.time() - self.translation_start_time
             result_length = len(result.strip())
-            # self.logger.info(f"翻译最终完成: 耗时{elapsed_time:.2f}秒, 结果长度{result_length}字符")
             return
 
         # 正常处理翻译结果
@@ -655,7 +761,9 @@ class ResultWindow:
         # 记录翻译完成
         elapsed_time = time.time() - self.translation_start_time
         result_length = len(result.strip())
-        # self.logger.info(f"翻译完成: 耗时{elapsed_time:.2f}秒, 结果长度{result_length}字符")
+
+        # 重置自动生成对话标志
+        self.auto_generate_dialogue = False
 
     def cancel_translation(self):
         """取消翻译"""
@@ -666,3 +774,6 @@ class ResultWindow:
 
         # 更新状态
         self.update_translation_output("翻译已取消")
+
+        # 重置自动生成对话标志
+        self.auto_generate_dialogue = False

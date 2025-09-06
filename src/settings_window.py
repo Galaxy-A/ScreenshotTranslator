@@ -24,7 +24,7 @@ class SettingsWindow:
 
         self.window = tk.Toplevel(master)
         self.window.title("设置")
-        self.window.geometry("550x580")  # 增加高度以适应新选项
+        self.window.geometry("550x600")  # 增加高度以适应新选项
         self.window.transient(master)
         self.window.grab_set()
 
@@ -97,6 +97,15 @@ class SettingsWindow:
             variable=self.hide_window_var
         )
         hide_window_check.pack(anchor=tk.W, padx=5, pady=5)
+
+        # 自动翻译设置 - 添加在隐藏窗口设置下方
+        self.auto_translate_var = tk.BooleanVar(value=self.new_settings.get("auto_translate", True))
+        auto_translate_check = ttk.Checkbutton(
+            capture_frame,
+            text="OCR完成后自动翻译并生成对话",
+            variable=self.auto_translate_var
+        )
+        auto_translate_check.pack(anchor=tk.W, padx=5, pady=5)
 
         # 快捷键设置
         hotkey_frame = ttk.Frame(general_frame)
@@ -498,6 +507,10 @@ class SettingsWindow:
             # 更新截屏时隐藏窗口设置
             self.new_settings["hide_window_on_capture"] = self.hide_window_var.get()
             self.logger.info(f"更新截屏隐藏窗口设置: {self.hide_window_var.get()}")
+
+            # 更新自动翻译设置
+            self.new_settings["auto_translate"] = self.auto_translate_var.get()
+            self.logger.info(f"更新自动翻译设置: {self.auto_translate_var.get()}")
 
             # 更新快捷键设置
             self.new_settings["hotkey"] = self.hotkey_var.get()

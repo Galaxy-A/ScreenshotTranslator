@@ -37,7 +37,8 @@ DEFAULT_SETTINGS = {
         "threshold": 0
     },
     "hide_window_on_capture": False,
-    "hotkey": "ctrl+alt+s"
+    "hotkey": "ctrl+alt+s",
+    "auto_translate": True
 }
 
 SETTINGS_FILE = "settings.json"
@@ -280,7 +281,8 @@ class OCRApplication:
             "1. 点击'开始截图'按钮或使用快捷键截图",
             "2. 在屏幕上拖拽选择识别区域",
             "3. 查看识别结果并保存",
-            f"4. 当前截图快捷键: {self.hotkey}"
+            f"4. 当前截图快捷键: {self.hotkey}",
+            "5. 识别完成后自动翻译并生成对话"
         ]
         for instruction in instructions:
             ttk.Label(help_frame, text=instruction, anchor=tk.W).pack(fill=tk.X, padx=10, pady=5)
@@ -413,6 +415,12 @@ class OCRApplication:
             # 启用查看结果按钮
             self.open_result_btn.config(state=tk.NORMAL)
 
+            # 如果启用了自动翻译，则触发自动翻译和对话生成
+            if self.settings.get("auto_translate", True) and text.strip():
+                self.logger.info("自动触发翻译和对话生成")
+                # 使用after确保在主线程中执行
+                self.master.after(500, lambda: self.result_window.auto_translate_and_generate(text))
+
         except Exception as e:
             self.logger.error(f"识别失败: {str(e)}")
             self.status_var.set(f"识别失败: {str(e)}")
@@ -427,14 +435,26 @@ class OCRApplication:
         if hasattr(self, 'result_window') and self.result_window and self.result_window.window.winfo_exists():
             self.result_window.window.destroy()
 
-        # 将self传递给ResultWindow
-        self.result_window = ResultWindow(self.master, self.current_screenshot, self.ocr_result, self)
+        # 将self和重新截图回调函数传递给ResultWindow
+        self.result_window = ResultWindow(
+            self.master,
+            self.current_screenshot,
+            self.ocr_result,
+            self,
+            recapture_callback=self.start_capture  # 重新截图回调函数
+        )
         self.logger.info("结果窗口已显示")
-
     def show_last_result(self):
         """显示上次识别结果"""
         if self.ocr_result:
-            self.show_result_window()
+            # 创建新的结果窗口，传递重新截图回调函数
+            self.result_window = ResultWindow(
+                self.master,
+                self.current_screenshot,
+                self.ocr_result,
+                self,  # app参数
+                recapture_callback=self.start_capture  # 重新截图回调函数
+            )
             self.result_window.display_result(self.ocr_result, self.current_screenshot)
             self.logger.info("显示上次结果")
         else:
@@ -499,7 +519,8 @@ class OCRApplication:
                         "1. 点击'开始截图'按钮或使用快捷键截图",
                         "2. 在屏幕上拖拽选择识别区域",
                         "3. 查看识别结果并保存",
-                        f"4. 当前截图快捷键: {self.hotkey}"
+                        f"4. 当前截图快捷键: {self.hotkey}",
+                        "5. 识别完成后自动翻译并生成对话"
                     ]
                     for instruction in instructions:
                         ttk.Label(widget, text=instruction, anchor=tk.W).pack(fill=tk.X, padx=10, pady=5)
