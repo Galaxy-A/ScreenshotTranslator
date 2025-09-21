@@ -10,8 +10,9 @@
   },
   "tesseract_path": "F:\\softeare\\OCR\\tesseract.exe",
   "tessdata_path": "F:\\softeare\\OCR\\tessdata",
-  "deepseek_api_key": "ApiKey",
-  "deepseek_model": "deepseek-reasoner",
+  "api_provider": "deepseek",
+  "api_key": "sk-28a1933232a346c9afb87275cf2aba64",
+  "api_model": "deepseek-chat",
   "preprocessing": {
     "grayscale": true,
     "invert": false,

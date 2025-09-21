@@ -34,15 +34,38 @@ if not exist "src\main.py" (
     exit /b 1
 )
 
-REM 3. 创建Python虚拟环境
-echo 正在创建Python虚拟环境...
-python -m venv .venv
-call .venv\Scripts\activate
+REM 3. 检查Python是否可用
+echo 正在检查Python环境...
+python --version >nul 2>&1
+if %errorlevel% neq 0 (
+    echo.
+    echo ======================================================
+    echo 错误：未找到Python环境！
+    echo 请确保已安装Python并添加到系统PATH中。
+    echo ======================================================
+    echo.
+    pause
+    exit /b 1
+)
 
-REM 4. 安装Python依赖
+REM 4. 创建Python虚拟环境
+echo 正在创建Python虚拟环境...
+python -m venv venv
+if %errorlevel% neq 0 (
+    echo.
+    echo ======================================================
+    echo 错误：创建虚拟环境失败！
+    echo ======================================================
+    echo.
+    pause
+    exit /b 1
+)
+call venv\Scripts\activate
+
+REM 5. 安装Python依赖
 echo.
 echo ======================================================
-echo 步骤4/9：虚拟环境安装Python依赖包
+echo 步骤5/9：虚拟环境安装Python依赖包
 echo ======================================================
 echo 此步骤将安装打包所需的Python依赖包。
 echo 按 Y 安装依赖包，或按 N 跳过（如果已安装）。
@@ -58,10 +81,10 @@ if errorlevel 2 (
     pip install -r requirements.txt
 )
 
-REM 5. 检查Tesseract-OCR安装
+REM 6. 检查Tesseract-OCR安装
 echo.
 echo ======================================================
-echo 步骤5/9：OCR引擎检查
+echo 步骤6/9：OCR引擎检查
 echo ======================================================
 echo 重要：OCR功能需要Tesseract-OCR支持！
 echo 如果未安装，OCR功能将无法正常工作。
@@ -81,10 +104,10 @@ if errorlevel 2 (
     pause
 )
 
-REM 6. 选择是否运行打包程序
+REM 7. 选择是否运行打包程序
 echo.
 echo ======================================================
-echo 步骤6/9：选择是否打包
+echo 步骤7/9：选择是否打包
 echo ======================================================
 echo 即将运行打包程序，生成可执行文件。
 echo 按 Y 开始打包，或按 N 跳过打包。
@@ -99,20 +122,42 @@ if errorlevel 2 (
     set SKIP_BUILD=0
 )
 
-REM 7. 运行打包脚本（如果选择Y）
+REM 8. 运行打包脚本（如果选择Y）
 if %SKIP_BUILD% equ 0 (
     echo.
     echo ======================================================
-    echo 步骤7/9：运行打包程序
+    echo 步骤8/9：运行打包程序
     echo ======================================================
+    
+    REM 检查build.py是否存在
+    if not exist "build.py" (
+        echo.
+        echo ======================================================
+        echo 错误：未找到 build.py 文件！
+        echo ======================================================
+        echo.
+        pause
+        exit /b 1
+    )
+    
     python build.py
+    if %errorlevel% neq 0 (
+        echo.
+        echo ======================================================
+        echo 错误：打包失败！
+        echo 请检查错误信息并重试。
+        echo ======================================================
+        echo.
+        pause
+        exit /b 1
+    )
 )
 
-REM 8. 检查打包结果（如果运行了打包）
+REM 9. 检查打包结果（如果运行了打包）
 if %SKIP_BUILD% equ 0 (
     echo.
     echo ======================================================
-    echo 步骤8/9：检查打包结果
+    echo 步骤9/9：检查打包结果
     echo ======================================================
 
 
@@ -146,7 +191,7 @@ echo 步骤9/9：清理临时文件
 echo ======================================================
 echo 正在清理虚拟环境...
 deactivate
-rmdir /s /q .venv
+rmdir /s /q venv
 
 echo.
 echo ======================================================

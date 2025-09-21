@@ -294,7 +294,7 @@ def create_spec_file(base_path, src_path, temp_deps_dir):
 block_cipher = None
 
 a = Analysis(
-    ['{src_path / "main.py"}'],
+    ['{str(src_path / "main.py")}'],
     pathex=[],
     binaries={binaries},
     datas={resources},
@@ -304,8 +304,9 @@ a = Analysis(
         'keyboard', 'json', 'logging', 'logging.handlers',
         '_tkinter', 'threading', 'time', 'socket', 're',
         'openai', 'pytesseract', 'screen_capture', 'ocr_engine',
-        'result_window', 'settings_window', 'translation',
-        'pkg_resources.py2_warn', 'pkg_resources.markers'
+        'result_window', 'translation', 'config', 'error_handler',
+        'performance', 'async_processor', 'advanced_cache', 'advanced_ui',
+        'smart_ocr', 'pkg_resources.py2_warn', 'pkg_resources.markers'
     ],
     hookspath=['.'],
     hooksconfig={{}},
@@ -397,6 +398,16 @@ def main():
             "ocr_result.txt": src_path / "ocr_result.txt",
             "screenshot.png": src_path / "screenshot.png",
         }
+        
+        # 检查资源文件是否存在
+        missing_files = []
+        for name, path in resources.items():
+            if not path.exists():
+                missing_files.append(name)
+        
+        if missing_files:
+            print(f"警告: 以下资源文件不存在: {', '.join(missing_files)}")
+            print("将创建占位文件...")
 
         # 创建默认设置文件（如果不存在）
         default_settings = {
@@ -411,14 +422,15 @@ def main():
             },
             "tesseract_path": r'C:\Program Files\Tesseract-OCR\tesseract.exe',
             "tessdata_path": r'C:\Program Files\Tesseract-OCR\tessdata',
-            "deepseek_api_key": "",
-            "deepseek_model": "deepseek-chat",
+            "api_provider": "deepseek",
+            "api_key": "",
+            "api_model": "deepseek-chat",
             "preprocessing": {
                 "grayscale": True,
                 "invert": False,
                 "threshold": 0
             },
-            "hide_window_on_capture": False,
+            "hide_window_on_capture": True,
             "hotkey": "ctrl+alt+s"
         }
 
@@ -483,9 +495,19 @@ def main():
             "-m", "PyInstaller",
             str(spec_file),
             "--clean",
-            "--noconfirm"
+            "--noconfirm",
+            "--log-level=INFO"
         ]
         print("执行命令: " + " ".join(command))
+        
+        # 检查PyInstaller是否可用
+        try:
+            import PyInstaller
+            print(f"PyInstaller版本: {PyInstaller.__version__}")
+        except ImportError:
+            print("错误: PyInstaller未安装!")
+            print("请运行: pip install pyinstaller")
+            return False
 
         # 使用subprocess.run执行PyInstaller
         log_file_path = base_path / "build_log.txt"
@@ -514,17 +536,17 @@ def main():
 
         # 验证结果
         print("验证打包结果...")
-        exe_path = dist_path / "ScreenshotTranslator.exe"
+        exe_path = dist_path / "ScreenshotTranslator" / "ScreenshotTranslator.exe"
         if return_code == 0 and exe_path.exists():
             # 复制资源文件到dist目录
             for name, path in resources.items():
                 if path.exists():
-                    dest_path = dist_path / name
+                    dest_path = dist_path / "ScreenshotTranslator" / name
                     shutil.copy2(path, dest_path)
                     print(f"已复制资源文件: {name}")
 
             # 创建版本信息文件
-            version_file = dist_path / "build_info.txt"
+            version_file = dist_path / "ScreenshotTranslator" / "build_info.txt"
             with open(version_file, "w", encoding="utf-8") as f:
                 f.write(f"构建时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
                 f.write(f"Python版本: {sys.version}\n")
@@ -534,7 +556,7 @@ def main():
                 f.write(f"使用命令: {' '.join(command)}\n")
 
             # 创建Tesseract-OCR提示文件
-            tesseract_note = dist_path / "TESSERACT_安装说明.txt"
+            tesseract_note = dist_path / "ScreenshotTranslator" / "TESSERACT_安装说明.txt"
             with open(tesseract_note, "w", encoding="utf-8") as f:
                 f.write("""重要提示：Tesseract-OCR 安装说明
 
@@ -559,6 +581,7 @@ def main():
             print(f"打包成功! 可执行文件路径: {exe_path}")
             print(f"文件大小: {os.path.getsize(exe_path)/1024/1024:.2f} MB")
             print(f"日志文件: {log_file_path}")
+            print(f"输出目录: {dist_path / 'ScreenshotTranslator'}")
             print(f"{'='*50}")
 
             # 询问是否测试应用程序
@@ -567,7 +590,7 @@ def main():
             if test_app == 'y':
                 print("正在启动应用程序...")
                 try:
-                    subprocess.Popen([str(exe_path)], cwd=dist_path)
+                    subprocess.Popen([str(exe_path)], cwd=dist_path / "ScreenshotTranslator")
                 except Exception as e:
                     print(f"启动应用程序失败: {str(e)}")
 
