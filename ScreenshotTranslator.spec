@@ -12,8 +12,9 @@ a = Analysis(
         'keyboard', 'json', 'logging', 'logging.handlers',
         '_tkinter', 'threading', 'time', 'socket', 're',
         'openai', 'pytesseract', 'screen_capture', 'ocr_engine',
-        'result_window', 'settings_window', 'translation',
-        'pkg_resources.py2_warn', 'pkg_resources.markers'
+        'result_window', 'translation', 'config', 'error_handler',
+        'performance', 'async_processor', 'advanced_cache', 'advanced_ui',
+        'smart_ocr', 'pkg_resources.py2_warn', 'pkg_resources.markers'
     ],
     hookspath=['.'],
     hooksconfig={},

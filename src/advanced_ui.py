@@ -593,7 +593,8 @@ class AdvancedSettingsWindow:
             settings["debug_mode"] = self.debug_mode_var.get()
             
             # 保存设置
-            self.config_manager.save_settings(settings)
+            self.config_manager.update(settings)
+            self.config_manager.save_settings()
             
             # 调用回调
             if self.on_save_callback:

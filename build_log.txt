@@ -1,137 +1,132 @@
-F:\Rrojects\ScreenshotTranslator\.venv\Lib\site-packages\altgraph\__init__.py:142: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
-  import pkg_resources
-482 INFO: PyInstaller: 6.7.0, contrib hooks: 2025.8
-483 INFO: Python: 3.12.2
-528 INFO: Platform: Windows-10-10.0.19045-SP0
-533 INFO: Removing temporary files and cleaning cache in C:\Users\Q\AppData\Local\pyinstaller
+360 INFO: PyInstaller: 6.16.0, contrib hooks: 2025.8
+360 INFO: Python: 3.12.2
+395 INFO: Platform: Windows-10-10.0.19045-SP0
+395 INFO: Python environment: F:\Rrojects\ScreenshotTranslator\venv
+397 INFO: Removing temporary files and cleaning cache in C:\Users\Q\AppData\Local\pyinstaller
 F:\Rrojects\ScreenshotTranslator\ScreenshotTranslator.spec:5: SyntaxWarning: invalid escape sequence '\R'
   ['F:\Rrojects\ScreenshotTranslator\src\main.py'],
-F:\Rrojects\ScreenshotTranslator\ScreenshotTranslator.spec:45: SyntaxWarning: invalid escape sequence '\R'
+F:\Rrojects\ScreenshotTranslator\ScreenshotTranslator.spec:46: SyntaxWarning: invalid escape sequence '\R'
   icon='F:\Rrojects\ScreenshotTranslator\src\ocr_icon.ico',
-538 INFO: Extending PYTHONPATH with paths
-['F:\\Rrojects\\ScreenshotTranslator\\src']
-1197 INFO: Appending 'binaries' from .spec
-1200 INFO: Appending 'datas' from .spec
-1380 INFO: checking Analysis
-1380 INFO: Building Analysis because Analysis-00.toc is non existent
-1380 INFO: Running Analysis Analysis-00.toc
-1380 INFO: Target bytecode optimization level: 0
-1380 INFO: Initializing module dependency graph...
-1382 INFO: Caching module graph hooks...
-1407 INFO: Analyzing base_library.zip ...
-F:\Rrojects\ScreenshotTranslator\.venv\Lib\site-packages\altgraph\__init__.py:142: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
-  import pkg_resources
-F:\Rrojects\ScreenshotTranslator\.venv\Lib\site-packages\altgraph\__init__.py:142: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
-  import pkg_resources
-F:\Rrojects\ScreenshotTranslator\.venv\Lib\site-packages\altgraph\__init__.py:142: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
-  import pkg_resources
-2943 INFO: Loading module hook 'hook-encodings.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'...
-F:\Rrojects\ScreenshotTranslator\.venv\Lib\site-packages\altgraph\__init__.py:142: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
-  import pkg_resources
-4928 INFO: Loading module hook 'hook-pickle.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'...
-5680 INFO: Loading module hook 'hook-heapq.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'...
-6116 INFO: Caching module dependency graph...
-6229 INFO: Looking for Python shared library...
-6241 INFO: Using Python shared library: F:\softeare\python\python312.dll
-6241 INFO: Analyzing F:\Rrojects\ScreenshotTranslator\src\main.py
-6375 INFO: Loading module hook 'hook-tkinter.py' from 'F:\\Rrojects\\ScreenshotTranslator'...
-6390 INFO: Loading module hook 'hook-_tkinter.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'...
-6499 INFO: Loading module hook 'hook-PIL.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'...
-6615 INFO: Loading module hook 'hook-PIL.Image.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'...
-F:\Rrojects\ScreenshotTranslator\.venv\Lib\site-packages\altgraph\__init__.py:142: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
-  import pkg_resources
-7261 INFO: Loading module hook 'hook-multiprocessing.util.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'...
-7417 INFO: Loading module hook 'hook-xml.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'...
-8359 INFO: Loading module hook 'hook-numpy.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\numpy\\_pyinstaller'...
-8657 INFO: Loading module hook 'hook-platform.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'...
-8775 INFO: Loading module hook 'hook-sysconfig.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'...
-9723 INFO: Loading module hook 'hook-difflib.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'...
-10781 INFO: Loading module hook 'hook-charset_normalizer.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'...
-11125 INFO: Loading module hook 'hook-packaging.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'...
-11169 INFO: Loading module hook 'hook-PIL.ImageFilter.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'...
-11193 INFO: Loading module hook 'hook-pytesseract.py' from 'F:\\Rrojects\\ScreenshotTranslator'...
-11308 INFO: Loading module hook 'hook-urllib3.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'...
-11905 INFO: Loading module hook 'hook-certifi.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'...
-12139 INFO: Analyzing hidden import 'logging.handlers'
-12196 INFO: Analyzing hidden import 'openai'
-12235 INFO: Loading module hook 'hook-pydantic.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'...
-F:\Rrojects\ScreenshotTranslator\.venv\Lib\site-packages\altgraph\__init__.py:142: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
-  import pkg_resources
-F:\Rrojects\ScreenshotTranslator\.venv\Lib\site-packages\pydantic\experimental\__init__.py:7: PydanticExperimentalWarning: This module is experimental, its contents are subject to change and deprecation.
-  warnings.warn(
-13227 INFO: Loading module hook 'hook-zoneinfo.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'...
-14566 INFO: Loading module hook 'hook-anyio.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'...
-F:\Rrojects\ScreenshotTranslator\.venv\Lib\site-packages\altgraph\__init__.py:142: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
-  import pkg_resources
-16937 INFO: Analyzing hidden import 'pkg_resources.py2_warn'
-17032 INFO: Loading module hook 'hook-pkg_resources.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'...
-<frozen importlib.util>:91: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
-F:\Rrojects\ScreenshotTranslator\.venv\Lib\site-packages\PyInstaller\utils\hooks\__init__.py:242: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
-  __import__(module_name)
-F:\Rrojects\ScreenshotTranslator\.venv\Lib\site-packages\altgraph\__init__.py:142: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
-  import pkg_resources
-18315 INFO: Loading module hook 'hook-jaraco.text.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'...
-18658 INFO: Loading module hook 'hook-backports.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'...
-18673 INFO: Loading module hook 'hook-platformdirs.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'...
-18742 ERROR: Hidden import 'pkg_resources.py2_warn' not found
-18742 INFO: Analyzing hidden import 'pkg_resources.markers'
-18742 ERROR: Hidden import 'pkg_resources.markers' not found
-18742 INFO: Processing module hooks...
-19103 WARNING: Hidden import "tzdata" not found!
-19464 INFO: Loading module hook 'hook-PIL.SpiderImagePlugin.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'...
-19607 WARNING: Hidden import "pkg_resources._vendor.jaraco.functools" not found!
-19608 WARNING: Hidden import "pkg_resources._vendor.jaraco.context" not found!
-19608 WARNING: Hidden import "pkg_resources._vendor.jaraco.text" not found!
-19608 WARNING: Hidden import "pkg_resources.extern" not found!
-19669 INFO: Loading module hook 'hook-_tkinter.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'...
-19670 INFO: checking Tree
-19670 INFO: Building Tree because Tree-00.toc is non existent
-19670 INFO: Building Tree Tree-00.toc
-19758 INFO: checking Tree
-19758 INFO: Building Tree because Tree-01.toc is non existent
-19758 INFO: Building Tree Tree-01.toc
-19769 INFO: checking Tree
-19769 INFO: Building Tree because Tree-02.toc is non existent
-19769 INFO: Building Tree Tree-02.toc
-19802 INFO: Performing binary vs. data reclassification (2208 entries)
-20385 INFO: Looking for ctypes DLLs
-20446 INFO: Analyzing run-time hooks ...
-20451 INFO: Including run-time hook 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_inspect.py'
-20453 INFO: Including run-time hook 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_pkgutil.py'
-20457 INFO: Processing pre-find module path hook _pyi_rth_utils from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_find_module_path\\hook-_pyi_rth_utils.py'.
-20458 INFO: Loading module hook 'hook-_pyi_rth_utils.py' from 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'...
-20459 INFO: Including run-time hook 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_multiprocessing.py'
-20464 INFO: Including run-time hook 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_pkgres.py'
-20468 INFO: Including run-time hook 'F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth__tkinter.py'
-20538 INFO: Looking for dynamic libraries
-F:\Rrojects\ScreenshotTranslator\.venv\Lib\site-packages\PyInstaller\building\build_main.py:199: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
-  __import__(package)
-F:\Rrojects\ScreenshotTranslator\.venv\Lib\site-packages\pydantic\experimental\__init__.py:7: PydanticExperimentalWarning: This module is experimental, its contents are subject to change and deprecation.
-  warnings.warn(
-21802 INFO: Extra DLL search directories (AddDllDirectory): ['F:\\Rrojects\\ScreenshotTranslator\\.venv\\Lib\\site-packages\\numpy.libs']
-21802 INFO: Extra DLL search directories (PATH): []
-23159 INFO: Warnings written to F:\Rrojects\ScreenshotTranslator\build\ScreenshotTranslator\warn-ScreenshotTranslator.txt
-23274 INFO: Graph cross-reference written to F:\Rrojects\ScreenshotTranslator\build\ScreenshotTranslator\xref-ScreenshotTranslator.html
-23383 INFO: checking PYZ
-23383 INFO: Building PYZ because PYZ-00.toc is non existent
-23383 INFO: Building PYZ (ZlibArchive) F:\Rrojects\ScreenshotTranslator\build\ScreenshotTranslator\PYZ-00.pyz
-24763 INFO: Building PYZ (ZlibArchive) F:\Rrojects\ScreenshotTranslator\build\ScreenshotTranslator\PYZ-00.pyz completed successfully.
-24802 INFO: checking PKG
-24802 INFO: Building PKG because PKG-00.toc is non existent
-24802 INFO: Building PKG (CArchive) ScreenshotTranslator.pkg
-24824 INFO: Building PKG (CArchive) ScreenshotTranslator.pkg completed successfully.
-24825 INFO: Bootloader F:\Rrojects\ScreenshotTranslator\.venv\Lib\site-packages\PyInstaller\bootloader\Windows-64bit-intel\runw.exe
-24825 INFO: checking EXE
-24825 INFO: Building EXE because EXE-00.toc is non existent
-24825 INFO: Building EXE from EXE-00.toc
-24826 INFO: Copying bootloader EXE to F:\Rrojects\ScreenshotTranslator\build\ScreenshotTranslator\ScreenshotTranslator.exe
-24839 INFO: Copying icon to EXE
-24927 INFO: Copying 0 resources to EXE
-24927 INFO: Embedding manifest in EXE
-24952 INFO: Appending PKG archive to EXE
-25058 INFO: Fixing EXE headers
-25151 INFO: Building EXE from EXE-00.toc completed successfully.
-25180 INFO: checking COLLECT
-25181 INFO: Building COLLECT because COLLECT-00.toc is non existent
-25182 INFO: Building COLLECT COLLECT-00.toc
-29061 INFO: Building COLLECT COLLECT-00.toc completed successfully.
+401 INFO: Module search paths (PYTHONPATH):
+['F:\\Rrojects\\ScreenshotTranslator',
+ 'F:\\softeare\\python\\python312.zip',
+ 'F:\\softeare\\python\\DLLs',
+ 'F:\\softeare\\python\\Lib',
+ 'F:\\softeare\\python',
+ 'F:\\Rrojects\\ScreenshotTranslator\\venv',
+ 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages',
+ 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\setuptools\\_vendor',
+ 'F:\\Rrojects\\ScreenshotTranslator\\src']
+901 INFO: Appending 'binaries' from .spec
+903 INFO: Appending 'datas' from .spec
+1019 INFO: checking Analysis
+1019 INFO: Building Analysis because Analysis-00.toc is non existent
+1019 INFO: Looking for Python shared library...
+1019 INFO: Using Python shared library: F:\softeare\python\python312.dll
+1019 INFO: Running Analysis Analysis-00.toc
+1019 INFO: Target bytecode optimization level: 0
+1019 INFO: Initializing module dependency graph...
+1023 INFO: Initializing module graph hook caches...
+1047 INFO: Analyzing modules for base_library.zip ...
+2793 INFO: Processing standard module hook 'hook-encodings.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+5380 INFO: Processing standard module hook 'hook-pickle.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+6515 INFO: Processing standard module hook 'hook-heapq.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+7527 INFO: Caching module dependency graph...
+7568 INFO: Analyzing F:\Rrojects\ScreenshotTranslator\src\main.py
+7571 INFO: Processing pre-find-module-path hook 'hook-tkinter.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_find_module_path'
+7572 INFO: TclTkInfo: initializing cached Tcl/Tk info...
+7854 INFO: Processing standard module hook 'hook-tkinter.py' from 'F:\\Rrojects\\ScreenshotTranslator'
+7869 INFO: Processing standard module hook 'hook-_tkinter.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+7984 INFO: Processing standard module hook 'hook-_ctypes.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+8054 INFO: Processing standard module hook 'hook-PIL.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+8164 INFO: Processing standard module hook 'hook-PIL.Image.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+8595 INFO: Processing standard module hook 'hook-numpy.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+8943 INFO: Processing standard module hook 'hook-platform.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+9131 INFO: Processing standard module hook 'hook-sysconfig.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+10236 INFO: Processing standard module hook 'hook-difflib.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+10538 INFO: Processing standard module hook 'hook-multiprocessing.util.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+10645 INFO: Processing standard module hook 'hook-xml.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+11593 INFO: Processing standard module hook 'hook-psutil.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+12084 INFO: Processing pre-safe-import-module hook 'hook-typing_extensions.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+12085 INFO: SetuptoolsInfo: initializing cached setuptools info...
+16916 INFO: Processing standard module hook 'hook-charset_normalizer.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+17500 INFO: Processing standard module hook 'hook-xml.etree.cElementTree.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+17683 INFO: Processing standard module hook 'hook-PIL.ImageFilter.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+17919 INFO: Processing standard module hook 'hook-pytesseract.py' from 'F:\\Rrojects\\ScreenshotTranslator'
+17946 INFO: Processing pre-safe-import-module hook 'hook-packaging.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+18188 INFO: Processing standard module hook 'hook-urllib3.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+18943 INFO: Processing standard module hook 'hook-certifi.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+19348 INFO: Analyzing hidden import 'logging.handlers'
+19417 INFO: Analyzing hidden import 'smart_ocr'
+19437 INFO: Processing standard module hook 'hook-cv2.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+19993 INFO: Analyzing hidden import 'pkg_resources.py2_warn'
+20084 INFO: Processing standard module hook 'hook-pkg_resources.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+20567 INFO: Processing pre-safe-import-module hook 'hook-jaraco.text.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+20568 INFO: Setuptools: 'jaraco.text' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.jaraco.text'!
+20574 INFO: Processing standard module hook 'hook-setuptools.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+20587 INFO: Processing pre-safe-import-module hook 'hook-distutils.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+20616 INFO: Processing pre-safe-import-module hook 'hook-jaraco.functools.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+20616 INFO: Setuptools: 'jaraco.functools' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.jaraco.functools'!
+20653 INFO: Processing pre-safe-import-module hook 'hook-more_itertools.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+20653 INFO: Setuptools: 'more_itertools' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.more_itertools'!
+20959 INFO: Processing pre-safe-import-module hook 'hook-importlib_metadata.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+20960 INFO: Setuptools: 'importlib_metadata' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.importlib_metadata'!
+20988 INFO: Processing standard module hook 'hook-setuptools._vendor.importlib_metadata.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+20991 INFO: Processing pre-safe-import-module hook 'hook-zipp.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+20991 INFO: Setuptools: 'zipp' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.zipp'!
+21333 INFO: Processing pre-safe-import-module hook 'hook-tomli.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+21333 INFO: Setuptools: 'tomli' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.tomli'!
+21780 INFO: Processing pre-safe-import-module hook 'hook-wheel.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+21780 INFO: Setuptools: 'wheel' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.wheel'!
+21958 INFO: Processing standard module hook 'hook-setuptools._vendor.jaraco.text.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+21960 INFO: Processing pre-safe-import-module hook 'hook-importlib_resources.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+21962 INFO: Processing pre-safe-import-module hook 'hook-jaraco.context.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+21962 INFO: Setuptools: 'jaraco.context' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.jaraco.context'!
+21971 INFO: Processing pre-safe-import-module hook 'hook-backports.tarfile.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+21971 INFO: Setuptools: 'backports.tarfile' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.backports.tarfile'!
+22056 INFO: Processing standard module hook 'hook-backports.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+22057 INFO: Processing pre-safe-import-module hook 'hook-platformdirs.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+22066 INFO: Processing standard module hook 'hook-platformdirs.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+22104 ERROR: Hidden import 'pkg_resources.py2_warn' not found
+22104 INFO: Analyzing hidden import 'pkg_resources.markers'
+22104 ERROR: Hidden import 'pkg_resources.markers' not found
+22104 INFO: Processing module hooks (post-graph stage)...
+22397 INFO: Processing standard module hook 'hook-PIL.SpiderImagePlugin.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+22843 INFO: Processing standard module hook 'hook-_tkinter.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks'
+22868 INFO: Performing binary vs. data reclassification (2212 entries)
+23171 INFO: Looking for ctypes DLLs
+23232 INFO: Analyzing run-time hooks ...
+23235 INFO: Including run-time hook 'pyi_rth_inspect.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+23238 INFO: Including run-time hook 'pyi_rth_pkgutil.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+23241 INFO: Including run-time hook 'pyi_rth_multiprocessing.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+23242 INFO: Including run-time hook 'pyi_rth__tkinter.py' from 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+23310 INFO: Creating base_library.zip...
+23332 INFO: Looking for dynamic libraries
+24104 INFO: Extra DLL search directories (AddDllDirectory): ['F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\numpy.libs', 'F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\cv2\\../../x64/vc17/bin']
+24104 INFO: Extra DLL search directories (PATH): ['F:\\Rrojects\\ScreenshotTranslator\\venv\\Lib\\site-packages\\cv2\\../../x64/vc17/bin']
+26121 INFO: Warnings written to F:\Rrojects\ScreenshotTranslator\build\ScreenshotTranslator\warn-ScreenshotTranslator.txt
+26201 INFO: Graph cross-reference written to F:\Rrojects\ScreenshotTranslator\build\ScreenshotTranslator\xref-ScreenshotTranslator.html
+26286 INFO: checking PYZ
+26286 INFO: Building PYZ because PYZ-00.toc is non existent
+26286 INFO: Building PYZ (ZlibArchive) F:\Rrojects\ScreenshotTranslator\build\ScreenshotTranslator\PYZ-00.pyz
+26826 INFO: Building PYZ (ZlibArchive) F:\Rrojects\ScreenshotTranslator\build\ScreenshotTranslator\PYZ-00.pyz completed successfully.
+26930 INFO: checking PKG
+26930 INFO: Building PKG because PKG-00.toc is non existent
+26930 INFO: Building PKG (CArchive) ScreenshotTranslator.pkg
+26950 INFO: Building PKG (CArchive) ScreenshotTranslator.pkg completed successfully.
+26952 INFO: Bootloader F:\Rrojects\ScreenshotTranslator\venv\Lib\site-packages\PyInstaller\bootloader\Windows-64bit-intel\runw.exe
+26952 INFO: checking EXE
+26953 INFO: Building EXE because EXE-00.toc is non existent
+26953 INFO: Building EXE from EXE-00.toc
+26954 INFO: Copying bootloader EXE to F:\Rrojects\ScreenshotTranslator\build\ScreenshotTranslator\ScreenshotTranslator.exe
+27164 INFO: Copying icon to EXE
+27421 INFO: Copying 0 resources to EXE
+27421 INFO: Embedding manifest in EXE
+27638 INFO: Appending PKG archive to EXE
+27674 INFO: Fixing EXE headers
+27772 INFO: Building EXE from EXE-00.toc completed successfully.
+27795 INFO: checking COLLECT
+27795 INFO: Building COLLECT because COLLECT-00.toc is non existent
+27796 INFO: Building COLLECT COLLECT-00.toc
+34015 INFO: Building COLLECT COLLECT-00.toc completed successfully.
+34075 INFO: Build complete! The results are available in: F:\Rrojects\ScreenshotTranslator\dist
