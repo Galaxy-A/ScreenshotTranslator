@@ -48,13 +48,10 @@ class Config:
                 # 合并默认设置，确保所有键都存在
                 merged_settings = self.DEFAULT_SETTINGS.copy()
                 merged_settings.update(settings)
-                self.logger.info("配置文件已加载")
                 return merged_settings
             except Exception as e:
                 self.logger.error(f"加载配置文件失败: {str(e)}, 使用默认设置")
                 return self.DEFAULT_SETTINGS.copy()
-        
-        self.logger.info("未找到配置文件，使用默认设置")
         return self.DEFAULT_SETTINGS.copy()
     
     def save_settings(self) -> bool:
@@ -62,7 +59,6 @@ class Config:
         try:
             with open(self.config_file, 'w', encoding='utf-8') as f:
                 json.dump(self._settings, f, indent=2, ensure_ascii=False)
-            self.logger.info("配置已保存")
             return True
         except Exception as e:
             self.logger.error(f"保存配置失败: {str(e)}")
@@ -97,7 +93,7 @@ class Config:
     def update(self, new_settings: Dict[str, Any]):
         """批量更新配置"""
         self._settings.update(new_settings)
-        self.logger.info("配置已批量更新")
+        # 配置已批量更新
     
     def backup_config(self, backup_dir: str = "backups") -> bool:
         """备份配置文件"""

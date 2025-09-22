@@ -6,6 +6,6 @@ requests>=2.28.0
 opencv-python>=4.9.0.80
 pygetwindow>=0.0.9
 pyperclip>=1.8.2
-requests>=2.31.0
+openai>=1.0.0
 pytest>=8.1.1
 black>=24.4.2

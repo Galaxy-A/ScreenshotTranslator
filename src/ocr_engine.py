@@ -12,7 +12,7 @@ class OCREngine:
     def __init__(self):
         # 获取日志记录器
         self.logger = logging.getLogger("OCREngine")
-        self.logger.info("OCR引擎初始化")
+        # OCR引擎初始化
 
         # 默认配置
         self.config = {
@@ -42,7 +42,7 @@ class OCREngine:
     def set_preprocessing(self, preprocessing):
         """设置预处理配置"""
         self.preprocessing = preprocessing
-        self.logger.info(f"更新预处理配置: {preprocessing}")
+        # 更新预处理配置
 
     def preprocess_image(self, image):
         """对图像进行预处理以提高OCR精度"""
@@ -73,7 +73,7 @@ class OCREngine:
 
         # 记录预处理步骤
         if preprocess_steps:
-            self.logger.debug(f"图像预处理步骤: {' -> '.join(preprocess_steps)}")
+            pass  # 图像预处理步骤记录
 
         return image
 
@@ -89,7 +89,7 @@ class OCREngine:
         config_str = f'--psm {self.config["psm"]} --oem {self.config["oem"]}'
 
         # 记录OCR参数
-        self.logger.info(f"执行OCR识别: 语言={lang}, PSM={self.config['psm']}, OEM={self.config['oem']}")
+        # 执行OCR识别
         
         # 进度回调
         if progress_callback:
@@ -114,7 +114,7 @@ class OCREngine:
             # 记录OCR结果摘要
             char_count = len(result.strip())
             word_count = len(result.split())
-            self.logger.info(f"OCR识别完成: {char_count}字符, {word_count}单词")
+            # OCR识别完成
             
             # 更新统计信息
             processing_time = time.time() - start_time
@@ -147,7 +147,7 @@ class OCREngine:
         self.config['language'] = language
         self.config['psm'] = psm
         self.config['oem'] = oem
-        self.logger.info(f"更新OCR配置: 语言={language}, PSM={psm}, OEM={oem}")
+        # 更新OCR配置
     
     def get_performance_stats(self) -> Dict[str, Any]:
         """获取性能统计信息"""
@@ -162,7 +162,7 @@ class OCREngine:
             "success_count": 0,
             "error_count": 0
         }
-        self.logger.info("OCR统计信息已重置")
+        # OCR统计信息已重置
     
     def optimize_for_text_type(self, image, text_type: str = "mixed"):
         """根据文本类型优化OCR参数"""
@@ -178,5 +178,5 @@ class OCREngine:
             self.config['language'] = 'chi_sim+eng'
             self.config['psm'] = '3'
         
-        self.logger.info(f"OCR参数已优化为: {text_type}")
+        # OCR参数已优化
         return self.config.copy()

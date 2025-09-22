@@ -22,7 +22,7 @@
   },
   "hide_window_on_capture": true,
   "hotkey": "ctrl+alt+s",
-  "cache_size_mb": 200,
+  "cache_size_mb": 50,
   "cache_ttl_hours": 24,
   "max_workers": 4,
   "auto_save": true,

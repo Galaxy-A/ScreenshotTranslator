@@ -26,7 +26,7 @@ class ResultWindow:
     def __init__(self, master, screenshot=None, ocr_result="", app=None,recapture_callback=None):
         # 获取日志记录器
         self.logger = logging.getLogger("ResultWindow")
-        self.logger.info("创建结果窗口")
+        # 创建结果窗口
 
         self.master = master
         self.app = app  # 保存应用实例引用
@@ -53,11 +53,11 @@ class ResultWindow:
         if ocr_result:
             self.display_result(ocr_result, screenshot)
 
-        self.logger.info("结果窗口初始化完成")
+        # 结果窗口初始化完成
 
     def on_close(self):
         """处理窗口关闭事件"""
-        self.logger.info("关闭结果窗口")
+        # 关闭结果窗口
         self.translation_in_progress = False  # 停止翻译
         
         # 检查窗口是否还存在，避免重复销毁
@@ -73,7 +73,7 @@ class ResultWindow:
 
     def recapture(self):
         """重新截图"""
-        self.logger.info("重新截图")
+        # 重新截图
         self.window.withdraw()  # 隐藏结果窗口
         
         if self.recapture_callback:
@@ -83,7 +83,7 @@ class ResultWindow:
 
     def edit_text(self):
         """编辑OCR文本"""
-        self.logger.info("编辑OCR文本")
+        # 编辑OCR文本
         
         # 创建编辑窗口
         edit_window = tk.Toplevel(self.window)
@@ -134,7 +134,7 @@ class ResultWindow:
                     self.app.ocr_result = edited_text
                     self.app.last_action.set(f"最近操作: 编辑了 {len(edited_text)} 个字符")
                 
-                self.logger.info(f"文本已编辑: {len(edited_text)} 字符")
+                # 文本已编辑
                 messagebox.showinfo("成功", "文本已更新")
             
             edit_window.destroy()
@@ -375,7 +375,7 @@ class ResultWindow:
 
     def translate_from_result(self):
         """从结果标签页翻译文本"""
-        self.logger.info("从结果标签页触发翻译")
+        # 从结果标签页触发翻译
         text_to_translate = self.text_area.get(1.0, tk.END).strip()
         if text_to_translate:
             self.translate_input.delete(1.0, tk.END)
@@ -831,7 +831,7 @@ class ResultWindow:
 
     def display_result(self, text, screenshot=None):
         """显示OCR结果和截图"""
-        self.logger.info("显示OCR结果")
+        # 显示OCR结果
         # 更新当前截图
         if screenshot:
             self.current_screenshot = screenshot
@@ -929,7 +929,7 @@ class ResultWindow:
 
     def save_screenshot(self):
         """保存截图到文件"""
-        self.logger.info("保存截图")
+        # 保存截图
         if not self.current_screenshot:
             self.logger.warning("尝试保存截图但无可用截图")
             messagebox.showwarning("警告", "没有可用的截图")
@@ -951,7 +951,7 @@ class ResultWindow:
 
     def close_and_recapture(self):
         """关闭窗口并触发重新截图"""
-        self.logger.info("触发重新截图")
+        # 触发重新截图
 
         # 如果有重新截图回调函数，调用它
         if self.recapture_callback:
@@ -1068,7 +1068,7 @@ class ResultWindow:
 
         # 记录翻译文本长度
         char_count = len(text_to_translate)
-        self.logger.info(f"开始翻译: {char_count}字符")
+        # 开始翻译
 
         # 标记翻译开始
         self.translation_in_progress = True
@@ -1121,7 +1121,7 @@ class ResultWindow:
             self._show_language_error_dialog()
             return
 
-        self.logger.info(f"翻译方向: {direction}")
+        # 翻译方向确定
 
         # 执行翻译 - 使用主线程安全方式
         self.schedule_translation(text_to_translate, direction)
@@ -1246,7 +1246,7 @@ class ResultWindow:
 
     def cancel_translation(self):
         """取消翻译"""
-        self.logger.info("用户取消翻译")
+        # 用户取消翻译
         self.translation_in_progress = False
         self.translate_btn.config(state=tk.NORMAL)
         self.cancel_btn.config(state=tk.DISABLED)
@@ -1257,7 +1257,7 @@ class ResultWindow:
 
     def generate_dialogue(self):
         """生成对话"""
-        self.logger.info("开始生成对话")
+        # 开始生成对话
         
         # 检查是否有翻译结果
         translated_content = self.translate_output.get(1.0, tk.END).strip()
@@ -1346,7 +1346,7 @@ class ResultWindow:
         self.translate_output.insert(tk.END, result)
         self.translate_output.see(tk.END)
         
-        self.logger.info("对话生成完成")
+        # 对话生成完成
 
     def handle_stream_dialogue(self, content):
         """处理流式对话生成输出"""
@@ -1423,7 +1423,7 @@ class ResultWindow:
         if not text.strip():
             return
         
-        self.logger.info("自动检测语言并设置目标语言")
+        # 自动检测语言并设置目标语言
         
         # 检测文本的主要语言
         detected_lang = self.detect_language(text)

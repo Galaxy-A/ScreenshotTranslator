@@ -71,7 +71,7 @@ class OCRApplication:
 
         # 获取日志记录器
         self.logger = logging.getLogger("OCRApplication")
-        self.logger.info("应用程序初始化开始")
+        # 应用程序初始化开始
 
         # 初始化优化组件
         self.error_handler = ErrorHandler()
@@ -151,7 +151,7 @@ class OCRApplication:
         # 启动快捷键监听
         self.start_hotkey_listener()
 
-        self.logger.info("OCR应用程序已启动")
+        # OCR应用程序已启动
 
     def start_hotkey_listener(self):
         """启动快捷键监听线程"""
@@ -163,11 +163,9 @@ class OCRApplication:
             daemon=True
         )
         self.hotkey_thread.start()
-        self.logger.info(f"快捷键监听已启动: {self.hotkey}")
 
     def listen_for_hotkey(self):
         """监听快捷键"""
-        self.logger.info("开始监听快捷键...")
         while self.hotkey_enabled:
             try:
                 # 使用超时避免阻塞
@@ -189,13 +187,11 @@ class OCRApplication:
             try:
                 with open(SETTINGS_FILE, 'r', encoding='utf-8') as f:
                     settings = json.load(f)
-                self.logger.info("设置文件已加载")
                 return settings
             except Exception as e:
                 self.logger.error(f"加载设置文件失败: {str(e)}, 使用默认设置")
                 # 文件损坏时使用默认设置
                 return DEFAULT_SETTINGS
-        self.logger.info("未找到设置文件，使用默认设置")
         return DEFAULT_SETTINGS
 
     def save_settings(self):
@@ -208,7 +204,6 @@ class OCRApplication:
 
             with open(SETTINGS_FILE, 'w', encoding='utf-8') as f:
                 json.dump(self.settings, f, indent=2)
-            self.logger.info("设置已保存")
             return True
         except Exception as e:
             self.logger.error(f"保存设置失败: {str(e)}")
@@ -379,7 +374,7 @@ class OCRApplication:
         self.last_action.set("最近操作: 开始截图")
         self.status_var.set("准备截图...")
         self.master.update()
-        self.logger.info("开始截图流程")
+        # 开始截图流程
         self.master.after(300, self.capture_and_ocr)
 
     def capture_and_ocr(self):
@@ -398,7 +393,7 @@ class OCRApplication:
 
         if not physical_coords:
             self.status_var.set("截图已取消")
-            self.logger.info("截图已取消")
+            # 截图已取消
             return
 
         # 转换为虚拟坐标
@@ -433,7 +428,7 @@ class OCRApplication:
 
         try:
             self.current_screenshot = self.screen_capture.capture_area((x1_phys, y1_phys, x2_phys, y2_phys))
-            self.logger.info(f"成功截取区域: ({x1_phys},{y1_phys})->({x2_phys},{y2_phys})")
+            # 成功截取区域
         except Exception as e:
             self.logger.error(f"截图失败: {str(e)}")
             self.status_var.set(f"截图失败: {str(e)}")
@@ -466,7 +461,7 @@ class OCRApplication:
                 # 使用传统OCR引擎
                 text = self.ocr_engine.perform_ocr(self.current_screenshot, progress_callback=progress_callback)
             
-            self.logger.info("OCR识别完成")
+            # OCR识别完成
 
             # 如果识别结果为空，尝试纯文本识别
             if not text.strip():
@@ -521,7 +516,7 @@ class OCRApplication:
             self.app_status.set("状态: 识别完成")
             self.last_action.set(f"最近操作: 识别了 {char_count} 个字符")
             self.status_var.set(f"识别完成！共识别 {char_count} 个字符，{word_count} 个单词")
-            self.logger.info(f"识别完成: {char_count}字符, {word_count}单词")
+            # 识别完成
 
             # 保存结果
             self._save_ocr_result(result)
@@ -536,7 +531,7 @@ class OCRApplication:
             with open('ocr_result.txt', 'w', encoding='utf-8') as f:
                 f.write(text)
             self.current_screenshot.save("screenshot.png")
-            self.logger.info("OCR结果和截图已保存")
+            # OCR结果和截图已保存
         except Exception as e:
             self.error_handler.handle_exception(e, "保存结果", show_dialog=False)
     
@@ -560,7 +555,7 @@ class OCRApplication:
         # 智能定位窗口
         self._position_result_window()
         
-        self.logger.info("结果窗口已智能显示")
+        # 结果窗口已智能显示
 
     def _position_result_window(self):
         """智能定位结果窗口"""
@@ -608,7 +603,7 @@ class OCRApplication:
 
     def _on_result_window_close(self):
         """结果窗口关闭回调"""
-        self.logger.info("结果窗口关闭回调被调用")
+        # 结果窗口关闭回调被调用
         
         try:
             # 调用result_window的on_close方法
@@ -628,14 +623,14 @@ class OCRApplication:
         if self.ocr_result:
             # 使用智能窗口管理显示结果
             self._smart_show_result_window()
-            self.logger.info("显示上次结果")
+            pass  # 显示上次结果
         else:
-            self.logger.info("没有可用的历史结果")
+            pass  # 没有可用的历史结果
             messagebox.showinfo("提示", "没有可用的历史结果")
 
     def show_settings(self):
         """显示设置窗口"""
-        self.logger.info("打开设置窗口")
+        # 打开设置窗口
         advanced_settings = AdvancedSettingsWindow(
             self.master,
             self.config,
@@ -644,7 +639,7 @@ class OCRApplication:
 
     def show_stats(self):
         """显示统计信息窗口"""
-        self.logger.info("打开统计窗口")
+        # 打开统计窗口
         
         # 创建统计窗口
         stats_window = tk.Toplevel(self.master)
@@ -718,34 +713,31 @@ class OCRApplication:
         """设置保存回调"""
         self.settings = new_settings
         
-        # 更新OCR引擎配置
-        self.ocr_engine.config = self.settings["ocr_config"]
-        self.ocr_engine.set_preprocessing(self.settings["preprocessing"])
-
-        # 更新翻译引擎API密钥、模型和提供商
-        self.translation_engine.set_api_key(self.settings["api_key"])
-        self.translation_engine.set_model(self.settings["api_model"])
-        self.translation_engine.set_provider(self.settings["api_provider"])
-
-        # 更新路径
-        pytesseract.pytesseract.tesseract_cmd = self.settings["tesseract_path"]
-        if os.path.exists(self.settings["tessdata_path"]):
-            os.environ['TESSDATA_PREFIX'] = self.settings["tessdata_path"]
-
-        # 更新快捷键
-        new_hotkey = self.settings.get("hotkey", "ctrl+alt+s")
+        # 立即更新UI相关的设置（快速操作）
+        self._update_ui_settings(new_settings)
+        
+        # 将耗时操作移到后台线程
+        import threading
+        background_thread = threading.Thread(
+            target=self._update_background_settings,
+            args=(new_settings,),
+            daemon=True
+        )
+        background_thread.start()
+    
+    def _update_ui_settings(self, new_settings):
+        """更新UI相关设置（快速操作）"""
+        # 更新快捷键状态显示
+        new_hotkey = new_settings.get("hotkey", "ctrl+alt+s")
         if new_hotkey != self.hotkey:
             self.hotkey = new_hotkey
             self.hotkey_status.set(f"当前快捷键: {self.hotkey}")
-            # 重新启动快捷键监听
-            self.hotkey_enabled = False
-            if self.hotkey_thread and self.hotkey_thread.is_alive():
-                self.hotkey_thread.join(0.5)
-            self.hotkey_enabled = True
-            self.start_hotkey_listener()
-            self.logger.info(f"快捷键已更新为: {self.hotkey}")
-
+        
         # 更新使用说明
+        self.master.after(100, lambda: self._update_instructions(new_hotkey))
+    
+    def _update_instructions(self, hotkey):
+        """更新使用说明（延迟执行避免阻塞）"""
         for widget in self.master.winfo_children():
             if isinstance(widget, ttk.LabelFrame) and widget.cget("text") == "使用说明":
                 # 清除旧说明
@@ -756,42 +748,56 @@ class OCRApplication:
                     "1. 点击'开始截图'按钮或使用快捷键截图",
                     "2. 在屏幕上拖拽选择识别区域",
                     "3. 查看识别结果并保存",
-                    f"4. 当前截图快捷键: {self.hotkey}",
+                    f"4. 当前截图快捷键: {hotkey}",
                     "5. 识别完成后可手动进行翻译"
                 ]
                 for instruction in instructions:
                     ttk.Label(widget, text=instruction, anchor=tk.W).pack(fill=tk.X, padx=10, pady=5)
                 break
-        
-        # 更新智能OCR设置（暂时禁用）
-        # if hasattr(self, 'smart_ocr'):
-        #     # 智能OCR会自动适应新设置
-        #     pass
-        
-        # 更新缓存设置
-        if hasattr(self, 'advanced_cache'):
-            # 更新缓存大小限制
-            max_size_mb = new_settings.get("cache_size_mb", 200)
-            self.advanced_cache.max_size_mb = max_size_mb
-        
-        # 更新异步处理器设置
-        max_workers = new_settings.get("max_workers", 4)
-        if hasattr(self, 'async_processor'):
-            self.async_processor.shutdown(wait=True)
-            self.async_processor = AsyncProcessor(max_workers=max_workers)
-        
-        # 显示通知
-        self.notification_system.show_notification(
-            "设置已更新",
-            "设置已保存并生效",
-            "success"
-        )
-        
-        self.logger.info("设置已更新")
+    
+    def _update_background_settings(self, new_settings):
+        """在后台更新设置（耗时操作）"""
+        try:
+            # 更新OCR引擎配置
+            self.ocr_engine.config = new_settings["ocr_config"]
+            self.ocr_engine.set_preprocessing(new_settings["preprocessing"])
+
+            # 更新翻译引擎API密钥、模型和提供商
+            self.translation_engine.set_api_key(new_settings["api_key"])
+            self.translation_engine.set_model(new_settings["api_model"])
+            self.translation_engine.set_provider(new_settings["api_provider"])
+
+            # 更新路径
+            pytesseract.pytesseract.tesseract_cmd = new_settings["tesseract_path"]
+            if os.path.exists(new_settings["tessdata_path"]):
+                os.environ['TESSDATA_PREFIX'] = new_settings["tessdata_path"]
+
+            # 更新快捷键监听（耗时操作）
+            new_hotkey = new_settings.get("hotkey", "ctrl+alt+s")
+            if new_hotkey != self.hotkey:
+                self.hotkey_enabled = False
+                if self.hotkey_thread and self.hotkey_thread.is_alive():
+                    self.hotkey_thread.join(0.5)
+                self.hotkey_enabled = True
+                self.start_hotkey_listener()
+            
+            # 更新缓存设置
+            if hasattr(self, 'advanced_cache'):
+                max_size_mb = new_settings.get("cache_size_mb", 200)
+                self.advanced_cache.max_size_mb = max_size_mb
+            
+            # 更新异步处理器设置（耗时操作）
+            max_workers = new_settings.get("max_workers", 4)
+            if hasattr(self, 'async_processor'):
+                self.async_processor.shutdown(wait=True)
+                self.async_processor = AsyncProcessor(max_workers=max_workers)
+            
+        except Exception as e:
+            self.logger.error(f"后台更新设置失败: {str(e)}")
 
     def on_closing(self):
         """程序关闭时调用"""
-        self.logger.info("应用程序正在关闭...")
+        # 应用程序正在关闭
         self.hotkey_enabled = False
         if self.hotkey_thread and self.hotkey_thread.is_alive():
             self.hotkey_thread.join(0.5)
@@ -807,4 +813,4 @@ class OCRApplication:
         self.config.save_settings()
         
         self.master.destroy()
-        self.logger.info("应用程序已关闭")
+        # 应用程序已关闭

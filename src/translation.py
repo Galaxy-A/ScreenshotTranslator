@@ -19,10 +19,8 @@ class TranslationEngine:
         # 根据提供商设置API端点
         if provider == "deepseek":
             self.base_url = "https://api.deepseek.com"
-            self.logger.info("初始化DeepSeek翻译引擎")
         else:
             self.base_url = "https://api.openai.com/v1"
-            self.logger.info("初始化OpenAI翻译引擎")
         
         self.timeout = 30  # 默认超时时间30秒
         self.headers = {
@@ -41,9 +39,8 @@ class TranslationEngine:
                 api_key=self.api_key,
                 base_url=self.base_url
             )
-            self.logger.info("OpenAI SDK客户端初始化成功")
+            pass  # OpenAI SDK客户端初始化成功
         except ImportError:
-            self.logger.warning("OpenAI SDK未安装，将使用requests方式")
             self.openai_client = None
         except Exception as e:
             self.logger.error(f"OpenAI SDK客户端初始化失败: {str(e)}")
@@ -51,7 +48,6 @@ class TranslationEngine:
 
     def set_api_key(self, api_key):
         """设置API密钥"""
-        self.logger.info("设置API密钥")
         self.api_key = api_key
         self.headers["Authorization"] = f"Bearer {api_key}"
         # 重新初始化OpenAI客户端
@@ -59,12 +55,10 @@ class TranslationEngine:
 
     def set_model(self, model):
         """设置AI模型"""
-        self.logger.info(f"设置AI模型: {model}")
         self.model = model
 
     def set_provider(self, provider):
         """设置API提供商"""
-        self.logger.info(f"设置API提供商: {provider}")
         self.provider = provider
         
         # 根据提供商更新API端点
@@ -88,7 +82,6 @@ class TranslationEngine:
 
         # 记录翻译文本长度
         char_count = len(text)
-        self.logger.info(f"开始翻译: 方向={direction}, 字符数={char_count}, 提供商={self.provider}")
 
         # 在单独的线程中执行翻译
         threading.Thread(
@@ -101,18 +94,15 @@ class TranslationEngine:
         """带重试机制的翻译操作"""
         for attempt in range(retries):
             try:
-                self.logger.info(f"翻译尝试 #{attempt+1}/{retries}")
                 result = self._perform_translation(text, direction, callback, stream_callback)
                 if callback:
                     callback(result)
                 return result
             except Exception as e:
                 error_msg = f"翻译请求失败: {str(e)}"
-                self.logger.error(error_msg)
 
                 if attempt < retries - 1:
                     wait_time = 2 ** attempt  # 指数退避策略
-                    self.logger.info(f"请求失败，{wait_time}秒后重试...")
                     time.sleep(wait_time)
                 else:
                     final_error = f"翻译失败: {str(e)}\n请检查网络连接和API密钥"
@@ -820,9 +810,6 @@ Translation requirements:
         # 检测文本类型并获取优化的提示词
         text_type = self._detect_text_type(text)
         user_content = self._get_optimized_prompt(text, direction, text_type)
-        self.logger.debug(f"使用{text_type}类型提示词进行{direction}翻译")
-
-        self.logger.debug(f"完整提示词: {user_content[:100]}...")  # 只记录前100个字符
 
         start_time = time.time()
 
@@ -841,7 +828,6 @@ Translation requirements:
     def _perform_translation_with_sdk(self, user_content, stream_callback, start_time):
         """使用OpenAI SDK执行翻译"""
         try:
-            self.logger.debug(f"使用OpenAI SDK发送翻译请求到{self.provider} API")
             
             messages = [
                 {"role": "system", "content": "你是一位专业的翻译专家，具有以下特点：\n1. 精通中英文互译，能够准确理解原文含义\n2. 翻译时保持原文的语气、风格和语境\n3. 对于技术术语、专业词汇会使用标准译法\n4. 对于OCR识别可能存在的错误，会结合上下文进行合理推测和修正\n5. 输出简洁明了，避免冗余表达\n6. 如果原文是代码、命令或特殊格式，会保持原有格式\n请提供准确、自然、流畅的翻译。"},
@@ -865,11 +851,6 @@ Translation requirements:
                         full_text += content
                         stream_callback(content)
                 
-                # 记录性能指标
-                elapsed_time = time.time() - start_time
-                char_count = len(full_text)
-                self.logger.info(f"流式翻译完成: 字符数={char_count}, 耗时={elapsed_time:.2f}秒")
-                
                 return full_text.strip()
             else:
                 # 非流式翻译
@@ -882,11 +863,6 @@ Translation requirements:
                 )
                 
                 translated_text = response.choices[0].message.content.strip()
-                
-                # 记录性能指标
-                elapsed_time = time.time() - start_time
-                char_count = len(translated_text)
-                self.logger.info(f"翻译完成: 字符数={char_count}, 耗时={elapsed_time:.2f}秒")
                 
                 return translated_text
 
@@ -912,7 +888,6 @@ Translation requirements:
         api_url = f"{self.base_url}/chat/completions"
 
         try:
-            self.logger.debug(f"使用requests发送翻译请求到{self.provider} API")
             response = requests.post(
                 api_url,
                 headers=self.headers,
@@ -969,11 +944,6 @@ Translation requirements:
                         except json.JSONDecodeError:
                             continue
 
-            # 记录性能指标
-            elapsed_time = time.time() - start_time
-            char_count = len(full_text)
-            self.logger.info(f"流式翻译完成: 字符数={char_count}, 耗时={elapsed_time:.2f}秒")
-
             return full_text.strip()
 
         except Exception as e:
@@ -984,7 +954,6 @@ Translation requirements:
         """处理非流式响应"""
         # 解析响应
         response_data = response.json()
-        self.logger.debug(f"API响应: {json.dumps(response_data)}")
 
         if "choices" not in response_data or len(response_data["choices"]) == 0:
             error_msg = "API响应格式异常"
@@ -993,11 +962,6 @@ Translation requirements:
 
         # 提取翻译结果
         translated_text = response_data["choices"][0]["message"]["content"].strip()
-
-        # 记录性能指标
-        elapsed_time = time.time() - start_time
-        char_count = len(translated_text)
-        self.logger.info(f"翻译完成: 字符数={char_count}, 耗时={elapsed_time:.2f}秒")
 
         return translated_text
 
@@ -1012,7 +976,6 @@ Translation requirements:
             return
 
         # 记录对话生成请求
-        self.logger.info(f"开始生成对话: 原文{len(original_text)}字符, 译文{len(translated_text)}字符, 句数{sentence_count}")
 
         # 在新线程中执行对话生成
         def _generate_dialogue_thread():
@@ -1040,7 +1003,6 @@ Translation requirements:
             try:
                 return self._perform_dialogue_generation(original_text, translated_text, sentence_count, stream_callback)
             except Exception as e:
-                self.logger.warning(f"对话生成尝试 {attempt + 1} 失败: {str(e)}")
                 if attempt < max_retries - 1:
                     time.sleep(retry_delay)
                     retry_delay *= 2  # 指数退避

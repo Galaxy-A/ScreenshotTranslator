@@ -15,7 +15,7 @@ class PerformanceMonitor:
     def start_timer(self, operation: str):
         """开始计时"""
         self.operation_times[operation] = time.time()
-        self.logger.debug(f"开始计时: {operation}")
+        # 开始计时
     
     def end_timer(self, operation: str) -> float:
         """结束计时并返回耗时"""
@@ -33,7 +33,7 @@ class PerformanceMonitor:
             "timestamp": time.time()
         })
         
-        self.logger.info(f"操作完成: {operation}, 耗时: {elapsed:.3f}秒")
+        # 操作完成
         return elapsed
     
     def get_operation_stats(self) -> Dict[str, Any]:
