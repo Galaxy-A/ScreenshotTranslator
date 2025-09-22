@@ -279,8 +279,26 @@ class AdvancedSettingsWindow:
         # API密钥
         ttk.Label(api_frame, text="API密钥:").grid(row=1, column=0, sticky=tk.W, pady=5)
         self.api_key_var = tk.StringVar()
-        api_key_entry = ttk.Entry(api_frame, textvariable=self.api_key_var, width=40, show="*")
-        api_key_entry.grid(row=1, column=1, sticky=tk.W, padx=(10, 0), pady=5)
+        self.api_key_visible = tk.BooleanVar(value=False)
+        
+        # API密钥输入框和眼睛图标容器
+        api_key_frame = ttk.Frame(api_frame)
+        api_key_frame.grid(row=1, column=1, sticky=tk.W, padx=(10, 5), pady=5)
+        
+        self.api_key_entry = ttk.Entry(api_key_frame, textvariable=self.api_key_var, width=30, show="*")
+        self.api_key_entry.pack(side=tk.LEFT, fill=tk.X, expand=True)
+        
+        # 眼睛图标按钮 - 放在文本框内部右侧
+        self.api_key_toggle_btn = ttk.Button(
+            api_key_frame, 
+            text="👁", 
+            command=self.toggle_api_key_visibility,
+            width=2
+        )
+        self.api_key_toggle_btn.pack(side=tk.RIGHT, padx=(0, 0))
+        
+        # 测试API密钥按钮
+        ttk.Button(api_frame, text="测试", command=self.test_api_key).grid(row=1, column=2, padx=5, pady=5)
         
         # 模型选择
         ttk.Label(api_frame, text="模型:").grid(row=2, column=0, sticky=tk.W, pady=5)
@@ -671,3 +689,106 @@ class AdvancedSettingsWindow:
             self.model_combo['values'] = ("gpt-3.5-turbo", "gpt-4", "gpt-4-turbo")
             if not self.model_var.get() or self.model_var.get() not in ("gpt-3.5-turbo", "gpt-4", "gpt-4-turbo"):
                 self.model_var.set("gpt-3.5-turbo")
+    
+    def toggle_api_key_visibility(self):
+        """切换API密钥可见性"""
+        self.api_key_visible.set(not self.api_key_visible.get())
+        if self.api_key_visible.get():
+            self.api_key_toggle_btn.config(text="🙈")  # 闭眼图标
+            self.api_key_entry.config(show="")
+        else:
+            self.api_key_toggle_btn.config(text="👁")  # 睁眼图标
+            self.api_key_entry.config(show="*")
+    
+    def test_api_key(self):
+        """测试API密钥是否有效"""
+        api_key = self.api_key_var.get().strip()
+        provider = self.provider_var.get()
+        model = self.model_var.get()
+        
+        if not api_key:
+            messagebox.showwarning("警告", "请输入API密钥")
+            return
+        
+        # 创建进度对话框
+        progress_dialog = ModernProgressDialog(
+            self.window, 
+            "测试API密钥", 
+            "正在测试API密钥有效性..."
+        )
+        
+        def test_in_thread():
+            try:
+                # 导入翻译引擎进行测试
+                from translation import TranslationEngine
+                
+                # 创建临时翻译引擎实例 - 修复参数顺序
+                engine = TranslationEngine(
+                    api_key=api_key,
+                    model=model,
+                    provider=provider
+                )
+                
+                # 测试API连接 - 使用简单的同步测试
+                test_success = False
+                if engine.openai_client:
+                    # 使用OpenAI SDK进行简单测试
+                    try:
+                        response = engine.openai_client.chat.completions.create(
+                            model=model,
+                            messages=[
+                                {"role": "system", "content": "你是一个翻译助手。"},
+                                {"role": "user", "content": "请翻译：Hello"}
+                            ],
+                            max_tokens=50,
+                            timeout=10
+                        )
+                        if response.choices and response.choices[0].message.content:
+                            test_success = True
+                    except Exception as sdk_error:
+                        # SDK测试失败，尝试requests方式
+                        try:
+                            import requests
+                            headers = {
+                                "Authorization": f"Bearer {api_key}",
+                                "Content-Type": "application/json"
+                            }
+                            data = {
+                                "model": model,
+                                "messages": [
+                                    {"role": "system", "content": "你是一个翻译助手。"},
+                                    {"role": "user", "content": "请翻译：Hello"}
+                                ],
+                                "max_tokens": 50
+                            }
+                            response = requests.post(
+                                f"{engine.base_url}/chat/completions",
+                                headers=headers,
+                                json=data,
+                                timeout=10
+                            )
+                            if response.status_code == 200:
+                                test_success = True
+                        except Exception as requests_error:
+                            raise Exception(f"SDK和requests方式都失败: SDK错误={str(sdk_error)}, Requests错误={str(requests_error)}")
+                else:
+                    raise Exception("OpenAI SDK未正确初始化")
+                
+                # 关闭进度对话框
+                self.window.after(0, progress_dialog.window.destroy)
+                
+                if test_success:
+                    self.window.after(0, lambda: messagebox.showinfo("成功", "API密钥测试成功！"))
+                else:
+                    self.window.after(0, lambda: messagebox.showerror("失败", "API密钥测试失败，请检查密钥是否正确"))
+                    
+            except Exception as e:
+                # 关闭进度对话框
+                self.window.after(0, progress_dialog.window.destroy)
+                # 修复lambda作用域问题
+                error_msg = f"API密钥测试失败: {str(e)}"
+                self.window.after(0, lambda msg=error_msg: messagebox.showerror("错误", msg))
+        
+        # 在后台线程中执行测试
+        test_thread = threading.Thread(target=test_in_thread, daemon=True)
+        test_thread.start()
